@@ -1,3 +1,4 @@
+Profs :
 Gérer correctement les transactions ACID (actuellement, on profite de l'autocommit...)
 Intégrer une librairie SQL (Spring JDBC Template, JooQ, JDBI3...)
 Intégrer un framework ORM (JPA/Hibernate, MyBatis)
@@ -6,3 +7,14 @@ Réaliser un front-end pour l'application grâce à une technologie côté serve
 Réaliser un front-end pour l'application grâce à une technologie côté client (VueJS par exemple)
 Mettre en place de la sécurité (Spring Security grâce au mécanisme de votre choix)
 Proposer d'autres services WEB dans l'application
+
+Application :
+Ajouter tous les cantons dans l'ENUM
+
+Persistance :
+Renommer les Mappers en DAO
+Potentiellement réaliser une classe DAOFactory
+Ajouter Connection aux paramètres des méthodes tapant dans la base de données
+Utiliser des fonctions pour l'appel des méthodes tapant dans la base de données
+Utiliser un try-with-ressource dans la méthode inTransaction
+Réaliser des injections de dépendances
