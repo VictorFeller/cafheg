@@ -8,11 +8,13 @@ import ch.hearc.cafheg.infrastructure.persistance.AllocataireMapper;
 import ch.hearc.cafheg.infrastructure.persistance.AllocationMapper;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Stream;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.Mockito;
 
 class AllocationServiceTest {
@@ -68,6 +70,61 @@ class AllocationServiceTest {
         () -> assertThat(all.get(1).getCanton()).isEqualTo(Canton.FR),
         () -> assertThat(all.get(1).getDebut()).isEqualTo(LocalDate.now()),
         () -> assertThat(all.get(1).getFin()).isNull());
+  }
+
+  @ParameterizedTest
+  @MethodSource("hashMapProviderParent1")
+  void getParentDroitAllocation_GivenXXX_SouldBeParent1(Map<String, Object> parameters){
+    assertThat(allocationService.getParentDroitAllocation(parameters)).isEqualTo("Parent1");
+  }
+
+  @ParameterizedTest
+  @MethodSource("hashMapProviderParent2")
+  void getParentDroitAllocation_GivenXXX_SouldBeParent2(Map<String, Object> parameters){
+    assertThat(allocationService.getParentDroitAllocation(parameters)).isEqualTo("Parent2");
+  }
+
+  static Stream<Map<String, Object>> hashMapProviderParent1() {
+    return Stream.of(
+            //Scenario a
+            Map.of("parent1ActiviteLucrative",true,
+                    "parent1Residence","Neuchâtel",
+                    "enfantResidence", "Neuchâtel"
+                    ),
+            //Scenario b
+            //Comment gérer l'autorité parentale ?
+            //On ne gère pas le salaire alors ça sera tjs le Parent2 ce qui n'est pas forcément juste
+            Map.of("parent1ActiviteLucrative",true,
+                    "parent2ActiviteLucrative", true,
+                    "enfantResidence", "Neuchâtel",
+                    "parent1Residence","Neuchâtel"
+
+                    ),
+            //Scenario C
+            //Comment gérer l'autorité parentale ?
+            //On ne gère pas le salaire alors ça sera tjs le Parent2 ce qui n'est pas forcément juste
+            Map.of("parent1ActiviteLucrative",true,
+                    "parent2ActiviteLucrative", true,
+                    "enfantResidence", "Neuchâtel",
+                    "parent1Residence","Neuchâtel",
+                    "parent2Residence","Bienne"/*,
+                    "parent1Salaire", 3500,
+                    "parent2Salaire", 3000*/
+            )
+    );
+  }
+
+  static Stream<Map<String, Object>> hashMapProviderParent2() {
+    return Stream.of(
+            //Scenario d'exemple
+            Map.of("enfantResidence", "Neuchâtel",
+                    "parent1Residence","Neuchâtel",
+                    "parent2Residence", "Bienne",
+                    "parent1ActiviteLucrative",true,
+                    "parent2ActiviteLucrative", true,
+                    "parent1Salaire", 2500,
+                    "parent2Salaire", 3000)
+    );
   }
 
 }
