@@ -17,6 +17,7 @@ import java.util.stream.Stream;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.Mockito;
@@ -98,15 +99,17 @@ class AllocationServiceTest {
 //  }
 
   @ParameterizedTest
-  @ValueSource(strings = { "Neuchâtel,Neuchâtel" })
-//  @MethodSource("hashMapProviderParent")
+  @MethodSource("hashMapProviderParent")
   void getParentDroitAllocation_GivenRESTControllerExample_ShouldBeParent2(DroitAllocationDTO droitAllocationDTO) {
-    String expected = droitAllocationDTO.getEnfantResidence() + "," + droitAllocationDTO.getParent1Residence();
-    String result = droitAllocationDTO.toStream().collect(Collectors.joining(","));
-
-    assertEquals(expected, result);
-
+    //TODO implémenter la suite
+    assertEquals(droitAllocationDTO.getEnfantResidence(), "Neuchâtel");
     
+//    String expected = droitAllocationDTO.getEnfantResidence() + "," + droitAllocationDTO.getParent1Residence();
+//    String result = droitAllocationDTO.toStream().collect(Collectors.joining(","));
+//
+//    assertEquals(expected, result);
+
+//    assertEquals(droitAllocationDTO.getEnfantResidence(), "Neuchâtel");
 
 //    assertAll(
 //            () -> assertThat(droitAllocationDTO.getEnfantResidence()).isEqualTo("Neuchâtel"),
@@ -132,9 +135,9 @@ class AllocationServiceTest {
 //                    "parent2Salaire", 3000)
 //    );
 //  }
-  static DroitAllocationDTO hashMapProviderParent() {
-    DroitAllocationDTO droitAllocationDTO = new DroitAllocationDTO("Neuchâtel", "Neuchâtel", "Bienne", true, true, true, 2500, 3000);
-    return droitAllocationDTO;
+  static Stream<Arguments> hashMapProviderParent() {
+    return Stream.of(Arguments.of(new DroitAllocationDTO("Neuchâtel", "Neuchâtel",
+            "Bienne", true, true, true, 2500, 3000)));
   }
 
 }

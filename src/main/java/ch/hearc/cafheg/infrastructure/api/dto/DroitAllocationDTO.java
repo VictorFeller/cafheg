@@ -57,8 +57,8 @@ public class DroitAllocationDTO {
     }
 
     public Stream<String> toStream() {
-        return Stream.of(enfantResidence, parent1Residence/*, parent2Residence, Boolean.toString(parent1ActiviteLucrative),
-                Boolean.toString(parent2ActiviteLucrative), Boolean.toString(parentsEnsemble), Integer.toString(parent1Salaire),
-                Integer.toString(parent2Salaire)*/);
+        return Stream.of(/*enfantResidence, parent1Residence, parent2Residence, Boolean.toString(parent1ActiviteLucrative),
+                Boolean.toString(parent2ActiviteLucrative), Boolean.toString(parentsEnsemble), */Integer.toString(parent1Salaire),
+                Integer.toString(parent2Salaire));
     }
 }
