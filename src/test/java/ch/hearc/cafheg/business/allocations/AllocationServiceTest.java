@@ -100,27 +100,9 @@ class AllocationServiceTest {
 
   @ParameterizedTest
   @MethodSource("hashMapProviderParent")
-  void getParentDroitAllocation_GivenRESTControllerExample_ShouldBeParent2(DroitAllocationDTO droitAllocationDTO) {
-    //TODO implémenter la suite
-    assertEquals(droitAllocationDTO.getEnfantResidence(), "Neuchâtel");
-    
-//    String expected = droitAllocationDTO.getEnfantResidence() + "," + droitAllocationDTO.getParent1Residence();
-//    String result = droitAllocationDTO.toStream().collect(Collectors.joining(","));
-//
-//    assertEquals(expected, result);
-
-//    assertEquals(droitAllocationDTO.getEnfantResidence(), "Neuchâtel");
-
-//    assertAll(
-//            () -> assertThat(droitAllocationDTO.getEnfantResidence()).isEqualTo("Neuchâtel"),
-//            () -> assertThat(droitAllocationDTO.getParent1Residence()).isEqualTo("Neuchâtel"),
-//            () -> assertThat(droitAllocationDTO.getParent2Residence()).isEqualTo("Bienne"),
-//            () -> assertThat(droitAllocationDTO.getParent1ActiviteLucrative()).isEqualTo(true),
-//            () -> assertThat(droitAllocationDTO.getParent2ActiviteLucrative()).isEqualTo(true),
-//            () -> assertThat(droitAllocationDTO.getParent1Salaire()).isEqualTo(2500),
-//            () -> assertThat(droitAllocationDTO.getParent2Salaire()).isEqualTo(3000),
-//            () -> assertThat(allocationService.getParentDroitAllocation(droitAllocationDTO)).isEqualTo("Parent2")
-//    );
+  void getParentDroitAllocation_GivenRESTControllerExample_ShouldBeParent2(DroitAllocationDTO droitAllocationDTO, String expected) {
+//    assertEquals(allocationService.getParentDroitAllocation(droitAllocationDTO), "Parent2");
+    assertEquals(allocationService.getParentDroitAllocation(droitAllocationDTO), expected);
   }
 
 //  static Stream<Map<String, Object>> hashMapProviderParent() {
@@ -136,8 +118,30 @@ class AllocationServiceTest {
 //    );
 //  }
   static Stream<Arguments> hashMapProviderParent() {
-    return Stream.of(Arguments.of(new DroitAllocationDTO("Neuchâtel", "Neuchâtel",
-            "Bienne", true, true, true, 2500, 3000)));
+    return Stream.of(
+            Arguments.of(new DroitAllocationDTO("Neuchâtel", "Neuchâtel",
+            "Bienne", true, true, false, false, "Neuchâtel", "Neuchâtel", "independant", "independant",  true, 2500, 3000), "Parent2"),
+            Arguments.of(new DroitAllocationDTO("Neuchâtel", "Neuchâtel",
+            "Bienne", true, true, false, false, "Neuchâtel", "Neuchâtel", "independant", "independant", true, 3500, 3000), "Parent1"),
+            //Scenario A
+            Arguments.of(new DroitAllocationDTO("Neuchâtel", "Neuchâtel",
+                    "Neuchâtel", true, false, false, false, null, null, null, null, null, 2500, 3500), "Parent1"),
+            //Scenario B
+            Arguments.of(new DroitAllocationDTO("Neuchâtel", "Neuchâtel",
+                    "Neuchâtel", true, true, true, false, null, null, null, null,null, 2500, 3500), "Parent1"),
+            //Scenario C
+            Arguments.of(new DroitAllocationDTO("Neuchâtel", "Neuchâtel",
+                    "Bienne", true, true, true, true, null, null, null, null, false, 2500, 3500), "Parent1"),
+            //Scenario D
+            Arguments.of(new DroitAllocationDTO("Neuchâtel", "Neuchâtel",
+                    "Bienne", true, true, true, true, "Neuchâtel", "Bienne", null, null,true, 2500, 3500), "Parent1"),
+            //Scenario E
+            Arguments.of(new DroitAllocationDTO("Neuchâtel", "Neuchâtel",
+                    "Bienne", true, true, true, true, "Neuchâtel", "Bienne", "employe", "employe",true, 2500, 3500), "Parent1"),
+            //Scenario F
+            Arguments.of(new DroitAllocationDTO("Neuchâtel", "Neuchâtel",
+                    "Bienne", true, true, true, true, "Neuchâtel", "Neuchâtel", "independant", "independant", true, 2500, 3500), "Parent2"));
+
   }
 
 }
