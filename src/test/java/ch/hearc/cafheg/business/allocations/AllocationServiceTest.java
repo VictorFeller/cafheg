@@ -47,8 +47,8 @@ class AllocationServiceTest {
   void findAllAllocataires_Given2Geiser_ShouldBe2() {
     Mockito.when(allocataireMapper.findAll("Geiser"))
         .thenReturn(Arrays.asList(
-                new Allocataire(new NoAVS("1000-2000"), "Geiser", "Arnaud"),
-                new Allocataire(new NoAVS("1000-2001"), "Geiser", "Aurélie"))
+                new Allocataire(new NoAVS("1000-2000"), "Geiser", "Arnaud", null, null, null, null, null, null),
+                new Allocataire(new NoAVS("1000-2001"), "Geiser", "Aurélie", null, null, null, null, null, null))
         );
     List<Allocataire> all = allocationService.findAllAllocataires("Geiser");
     assertAll(
