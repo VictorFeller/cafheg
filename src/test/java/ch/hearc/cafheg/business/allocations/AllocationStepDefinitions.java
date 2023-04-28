@@ -1,5 +1,9 @@
+
 package ch.hearc.cafheg.business.allocations;
 
+import ch.hearc.cafheg.infrastructure.api.dto.DroitAllocationDTO;
+import ch.hearc.cafheg.infrastructure.persistance.AllocataireMapper;
+import ch.hearc.cafheg.infrastructure.persistance.AllocationMapper;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -15,65 +19,68 @@ import static org.mockito.Mockito.when;
 
 
 public class AllocationStepDefinitions {
-    private AllocationService allocationService;
-    protected Map<String, Object> parameters = new HashMap<>();
 
-    @Given("Parent1 {string} works at {string} as {string} for {int} and can parent the child {string}")
-    public void parent1(String parent1Name, String parent1WorkPlace, String parent1WorkType, int parent1Salary, String parent1Parenting) {
-        parameters.put("Parent1Name", parent1Name);
-        parameters.put("Parent1WorkPlace", parent1WorkPlace);
-        parameters.put("Parent1WorkType", parent1WorkType);
-        parameters.put("Parent1Salary", parent1Salary);
-        parameters.put("Parent1Parenting", parent1Parenting);
+    private final AllocataireMapper allocataireMapper = new AllocataireMapper();
+    private final AllocationMapper allocationMapper = new AllocationMapper();
+    private AllocationService allocationService = new AllocationService(allocataireMapper,allocationMapper);
+    protected DroitAllocationDTO dto;
+    protected Map<String,Object> parameters = new HashMap<>();
+
+    public AllocationStepDefinitions() {
     }
 
-    @Given("Parent2 {string} works at {string} as {string} for {int} and can parent the child {string}")
-    public void parent2(String parent2Name, String parent2WorkPlace, String parent2WorkType, int parent2Salary, String parent2Parenting) {
-        parameters.put("Parent2Name", parent2Name);
+    @Given("Parent1 works {string} at {string} as {string} for {int} lives in {string} and can parent the child {string}")
+    public void parent1(String parent1ActivLucr, String parent1WorkPlace, String parent1WorkType, int parent1Salary,String parent1Resid, String parent1Parenting) {
+        parameters.put("Parent1ActiviteLucrative", Boolean.valueOf(parent1ActivLucr));
+        parameters.put("Parent1WorkPlace", parent1WorkPlace);
+        parameters.put("Parent1WorkType", parent1WorkType);
+        parameters.put("Parent1Salary", Integer.valueOf(parent1Salary));
+        parameters.put("Parent1Residence", parent1Resid);
+        parameters.put("Parent1Parenting", Boolean.valueOf(parent1Parenting));
+    }
+
+    @Given("Parent2 works {string} at {string} as {string} for {int} lives in {string} and can parent the child {string}")
+    public void parent2(String parent2ActivLucr, String parent2WorkPlace, String parent2WorkType, int parent2Salary,String parent2Resid, String parent2Parenting) {
+        parameters.put("Parent2ActiviteLucrative", Boolean.valueOf(parent2ActivLucr));
         parameters.put("Parent2WorkPlace", parent2WorkPlace);
         parameters.put("Parent2WorkType", parent2WorkType);
-        parameters.put("Parent2Salary", parent2Salary);
-        parameters.put("Parent2Parenting", parent2Parenting);
+        parameters.put("Parent2Salary", Integer.valueOf(parent2Salary));
+        parameters.put("Parent2Residence", parent2Resid);
+        parameters.put("Parent2Parenting", Boolean.valueOf(parent2Parenting));
     }
 
     @Given("parents live together ? {string}")
     public void liveTogether(String liveTogether) {
-        parameters.put("LiveTogether", liveTogether);
+        parameters.put("LiveTogether", Boolean.valueOf(liveTogether));
     }
 
-    @Given("child live in {string} with parent {string}")
-    public void child(String childResidence, String childLivesWithParent) {
+    @Given("child live in {string}")
+    public void child(String childResidence) {
         parameters.put("ChildResidence", childResidence);
-        parameters.put("ChildLivesWithParent", Integer.valueOf(childLivesWithParent));
     }
 
-    @When("parents ask for CAF rights with {string}")
-    public void askForRights(String scenario) {
-        allocationService = Mockito.mock(AllocationService.class);
-        switch (scenario) {
-            case "A":
-                when(allocationService.getParentDroitAllocation(parameters)).thenReturn("Parent1");
-                break;
-            case "B":
-                when(allocationService.getParentDroitAllocation(parameters)).thenReturn("Parent2");
-                break;
-            case "C":
-                when(allocationService.getParentDroitAllocation(parameters)).thenReturn("Parent2");
-                break;
-            case "D":
-                when(allocationService.getParentDroitAllocation(parameters)).thenReturn("Parent1");
-                break;
-            case "E":
-                when(allocationService.getParentDroitAllocation(parameters)).thenReturn("Parent1");
-                break;
-            case "F":
-                when(allocationService.getParentDroitAllocation(parameters)).thenReturn("Parent1");
-                break;
-        }
+    @When("^parents ask for CAF rights with information above$")
+    public void askForRights() {
+        dto = new DroitAllocationDTO(
+                (String) parameters.get("ChildResidence"),
+                (String) parameters.get("Parent1Residence"),
+                (String) parameters.get("Parent2Residence"),
+                (Boolean) parameters.get("Parent1ActiviteLucrative"),
+                (Boolean) parameters.get("Parent2ActiviteLucrative"),
+                (Boolean) parameters.get("Parent1Parenting"),
+                (Boolean) parameters.get("Parent2Parenting"),
+                (String)parameters.get("Parent1WorkPlace"),
+                (String)parameters.get("Parent2WorkPlace"),
+                (String)parameters.get("Parent1WorkType"),
+                (String)parameters.get("Parent2WorkType"),
+                (Boolean) parameters.get("LiveTogether"),
+                (Integer) parameters.get("Parent1Salary"),
+                (Integer) parameters.get("Parent2Salary")
+        );
     }
 
     @Then("parent who will receive the CAF is {string}")
     public void parentWithRights(String parentWithRights) {
-        assertEquals(parentWithRights, allocationService.getParentDroitAllocation(parameters));
+        assertEquals(parentWithRights, allocationService.getParentDroitAllocation(dto));
     }
 }

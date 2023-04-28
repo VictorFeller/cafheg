@@ -4,19 +4,23 @@ Feature: Allocation Service
 
 
   Scenario Outline: Parents ask for CAF
-    Given Parent1 <Parent1Name> works at <Parent1WorkPlace> as <Parent1WorkType> for <Parent1Salary> and can parent the child <Parent1Parenting>
-    And Parent2 <Parent2Name> works at <Parent2WorkPlace> as <Parent2WorkType> for <Parent2Salary> and can parent the child <Parent2Parenting>
+    Given Parent1 works <Parent1ActiviteLucrative> at <Parent1WorkPlace> as <Parent1WorkType> for <Parent1Salary> lives in <Parent1Residence> and can parent the child <Parent1Parenting>
+    And Parent2 works <Parent2ActiviteLucrative> at <Parent2WorkPlace> as <Parent2WorkType> for <Parent2Salary> lives in <Parent2Residence> and can parent the child <Parent2Parenting>
     And parents live together ? <liveTogether>
-    And child live in <ChildResidence> with parent <ChildLivesWithParent>
-    When parents ask for CAF rights with <Scenario>
+    And child live in <ChildResidence>
+    When parents ask for CAF rights with information above
     Then parent who will receive the CAF is <ParentWithRights>
 
     Examples:
-      | Scenario | Parent1Name | Parent1WorkPlace | Parent1WorkType | Parent1Salary | Parent1Parenting | Parent2Name | Parent2WorkPlace | Parent2WorkType | Parent2Salary | Parent2Parenting | ChildResidence | ChildLivesWithParent | liveTogether | ParentWithRights |
-      | 'A'      | 'Marcel'    | 'FR'             | 'independant'   | 6700          | 'true'           | 'Typhène'   | 'none'           | 'none'          | 0             | 'true'           | 'FR'           | '1'                  | 'true'       | 'Parent1'        |
-      | 'B'      | 'Marcel'    | 'FR'             | 'independant'   | 6700          | 'false'          | 'Typhène'   | 'FR'             | 'employee'      | 1000          | 'true'           | 'FR'           | '2'                  | 'false'      | 'Parent2'        |
-      | 'C'      | 'Marcel'    | 'FR'             | 'independant'   | 6700          | 'true'           | 'Typhène'   | 'FR'             | 'employee'      | 1000          | 'true'           | 'FR'           | '2'                  | 'false'      | 'Parent2'        |
-      | 'D'      | 'Marcel'    | 'FR'             | 'independant'   | 6700          | 'true'           | 'Typhène'   | 'FR'             | 'employee'      | 1000          | 'true'           | 'FR'           | '1'                  | 'true'       | 'Parent1'        |
-      | 'E'      | 'Marcel'    | 'FR'             | 'employe'       | 6700          | 'true'           | 'Typhène'   | 'FR'             | 'employee'      | 1000          | 'true'           | 'FR'           | '1'                  | 'true'       | 'Parent1'        |
-      | 'F'      | 'Marcel'    | 'FR'             | 'independant'   | 6700          | 'true'           | 'Typhène'   | 'FR'             | 'employee'      | 1000          | 'true'           | 'FR'           | '1'                  | 'true'       | 'Parent1'        |
+      | Parent1ActiviteLucrative | Parent1Residence | Parent1WorkPlace | Parent1WorkType | Parent1Salary | Parent1Parenting | Parent2ActiviteLucrative | Parent2Residence | Parent2WorkPlace | Parent2WorkType | Parent2Salary | Parent2Parenting | ChildResidence | liveTogether | ParentWithRights |
+      | 'true'                   | 'FR'             | 'FR'             | 'employee'      | 6700          | 'true'           | 'false'                  | 'FR'             | 'none'           | 'none'          | 0             | 'true'           | 'FR'           | 'true'       | 'Parent1'        |
+      | 'true'                   | 'FR'             | 'FR'             | 'employee'      | 6700          | 'true'           | 'true'                   | 'NE'             | 'NE'             | 'employee'      | 1000          | 'false'          | 'FR'           | 'false'      | 'Parent1'        |
+      | 'true'                   | 'FR'             | 'FR'             | 'employee'      | 6700          | 'true'           | 'true'                   | 'NE'             | 'NE'             | 'employee'      | 1000          | 'true'           | 'NE'           | 'false'      | 'Parent2'        |
+      | 'true'                   | 'FR'             | 'FR'             | 'employee'      | 6700          | 'true'           | 'true'                   | 'FR'             | 'NE'             | 'employee'      | 1000          | 'true'           | 'FR'           | 'true'       | 'Parent1'        |
+      | 'true'                   | 'FR'             | 'FR'             | 'employee'      | 4000          | 'true'           | 'true'                   | 'FR'             | 'FR'             | 'employee'      | 6700          | 'true'           | 'FR'           | 'true'       | 'Parent2'        |
+      | 'true'                   | 'FR'             | 'FR'             | 'employee'      | 4000          | 'true'           | 'true'                   | 'FR'             | 'FR'             | 'indenpendant'  | 6700          | 'true'           | 'FR'           | 'true'       | 'Parent1'        |
+      | 'true'                   | 'FR'             | 'FR'             | 'idenpendant'   | 4000          | 'true'           | 'true'                   | 'FR'             | 'FR'             | 'indenpendant'  | 6700          | 'true'           | 'FR'           | 'true'       | 'Parent2'        |
+
+
+
 
