@@ -1,3 +1,6 @@
+//TODO utiliser des constantes
+//TODO utiliser NE au lien de Neuchâtel
+//TODO clean code
 package ch.hearc.cafheg.business.allocations;
 
 import ch.hearc.cafheg.infrastructure.api.dto.DroitAllocationDTO;
@@ -30,72 +33,117 @@ public class AllocationService {
         return allocationMapper.findAll();
     }
 
-    public String getParentDroitAllocation(DroitAllocationDTO droitAllocationDTO) {
-        //TODO Utiliser classe métier ?
-        //TODO extraire les conditions if dans des méthodes
+    public String getParentDroitAllocation(DroitAllocationDTO droitAllocationDTO) throws Exception {
+        Allocataire allocataireParent1 = new Allocataire(
+                new NoAVS("756"),
+                "Dubois",
+                "Jeanne",
+                droitAllocationDTO.getParent1Residence().orElse(""),
+                droitAllocationDTO.getParent1ActiviteLucrative().orElseThrow(() -> new RuntimeException("Merci de renseigner...")), //TODO create AllocationServiceExcetion
+                droitAllocationDTO.getParent1AutoriteParentale().orElse(false),
+                droitAllocationDTO.getParent1WorkPlace().orElse(""),
+                droitAllocationDTO.getParent1WorkType().orElse(""),
+                droitAllocationDTO.getParent1Salaire().orElse(0)
+        );
+
+        Allocataire allocataireParent2 = new Allocataire(
+                new NoAVS("756"),
+                "Dubois",
+                "Marc",
+                droitAllocationDTO.getParent2Residence().orElse(""),
+                droitAllocationDTO.getParent2ActiviteLucrative().orElseThrow(() -> new Exception("Merci de renseigner...")), //TODO create AllocationServiceExcetion
+                droitAllocationDTO.getParent2AutoriteParentale().orElse(false),
+                droitAllocationDTO.getParent2WorkPlace().orElse(""),
+                droitAllocationDTO.getParent2WorkType().orElse(""),
+                droitAllocationDTO.getParent2Salaire().orElse(0)
+        );
+
 
         System.out.println("Déterminer quel parent a le droit aux allocations");
-        String eR = droitAllocationDTO.getEnfantResidence();
-        Boolean p1AL = droitAllocationDTO.getParent1ActiviteLucrative();
-        String p1Residence = droitAllocationDTO.getParent1Residence();
-        Boolean p2AL = droitAllocationDTO.getParent2ActiviteLucrative();
-        String p2Residence = droitAllocationDTO.getParent2Residence();
-        Boolean pEnsemble = droitAllocationDTO.getParentsEnsemble();
-        Number salaireP1 = droitAllocationDTO.getParent1Salaire();
-        Number salaireP2 = droitAllocationDTO.getParent2Salaire();
-        Boolean p1AP = droitAllocationDTO.getParent1AutoriteParentale();
-        Boolean p2AP = droitAllocationDTO.getParent2AutoriteParentale();
-        String p1WorkPlace = droitAllocationDTO.getParent1WorkPlace();
-        String p2WorkPlace = droitAllocationDTO.getParent2WorkPlace();
-        String p1WorkType = droitAllocationDTO.getParent1WorkType();
-        String p2WorkType = droitAllocationDTO.getParent2WorkType();
+        String eR = String.valueOf(droitAllocationDTO.getEnfantResidence().orElse(""));
+        boolean pEnsemble = droitAllocationDTO.getParentsEnsemble().orElse(false);
 
-        if (p1AL && !p2AL) {
+
+
+        //Au moins un des deux parents a une activité lucrative
+        if(!allocataireParent1.getActiviteLucrative() && !allocataireParent2.getActiviteLucrative())
+            throw new RuntimeException("Aucun parent n'exerce d'activité lucrative");
+        //Seul le parent 1 a une activité lucrative
+        if(allocataireParent1.getActiviteLucrative() && !allocataireParent2.getActiviteLucrative()){
             return PARENT_1;
         }
 
-        if (p2AL && !p1AL) {
+        //Seul le parent 2 a une activité lucrative
+        if(!allocataireParent1.getActiviteLucrative() && allocataireParent2.getActiviteLucrative()) {
             return PARENT_2;
         }
 
-        if (p1AP && p2AP != null && !p2AP ) {
+        //Contrôle qu'au moins un des deux parents ait l'autorité parentale
+        if(!allocataireParent1.getAutoriteParentale() && !allocataireParent2.getAutoriteParentale())
+            throw new RuntimeException("Aucun des deux parents n'a l'autorité parentale");
+        //Seul le parent 1 a l'autorité parentale
+        if (allocataireParent1.getAutoriteParentale() && !allocataireParent2.getAutoriteParentale()) {
             return PARENT_1;
         }
-        if (!p1AP && p2AP != null && p2AP ) {
+
+        //Seul le parent 2 a l'autorité parentale
+        if (!allocataireParent1.getAutoriteParentale() && allocataireParent2.getAutoriteParentale()) {
             return PARENT_2;
         }
 
-        //Contrôle que le parent 1 habite avec l'enfant
-        if (!pEnsemble) {
-            return eR.equals(p1Residence) ? PARENT_1 : null;
+        //Les parents ne vivent pas ensemble
+        if(!pEnsemble){
+            //Le parent 1 vit avec l'enfant
+            if(allocataireParent1.getResidence().equals(eR))
+                return PARENT_1;
+            //Le parent 2 vit avec l'enfant
+            if(allocataireParent2.getResidence().equals(eR))
+                return PARENT_2;
+            throw new RuntimeException("Impossible de déterminer l'allocation, aucun parent n'habite avec l'enfant");
         }
 
-        //Contrôle qu'un parent travaille dans le canton de l'enfant
-        if (p1WorkPlace.equals(eR) && !p2WorkPlace.equals(eR))
-            return PARENT_1;
-        if (!p1WorkPlace.equals(eR) && p2WorkPlace.equals(eR))
-            return PARENT_2;
+        //Les parents habitent ensemble
+        if (pEnsemble) {
+            //Le parent 1 travaille dans le canton de l'enfant mais le parent 2 non
+            if (allocataireParent1.getWorkplace().equals(eR) && !allocataireParent2.getWorkplace().equals(eR))
+                return PARENT_1;
+            //Le parent 2 travaille dans le canton de l'enfant mais le parent 1 non
+            if (!allocataireParent1.getWorkplace().equals(eR) && allocataireParent2.getWorkplace().equals(eR))
+                return PARENT_2;
+        }
+
+
 
         //Contrôle le worktype
-        if(p1WorkType.equals("independant") && p2WorkType.equals("independant"))
-            return salaireP1.doubleValue() > salaireP2.doubleValue() ? PARENT_1 : PARENT_2;
+        //Les deux parents sont indépendants
+        if(allocataireParent1.getWorktype().equals("independant") && allocataireParent2.getWorktype().equals("independant")) {
+            if(allocataireParent1.getSalaire() == 0 && allocataireParent2.getSalaire() == 0)
+                throw new RuntimeException("Impossible de déterminer le droit, salaires manquants");
+            return allocataireParent1.getSalaire().doubleValue() > allocataireParent2.getSalaire().doubleValue() ? PARENT_1 : PARENT_2;
+        }
 
-        if(checkIfParentsBothEmployeOROneEmployeAndOneIndep(p1WorkType, p2WorkType))
-            if(p1WorkType.equals("employe") && p2WorkType.equals("employe")) {
-                return salaireP1.doubleValue() > salaireP2.doubleValue() ? PARENT_1 : PARENT_2;
+        //Les deux parents sont employés ou un est salarié et l'autre indépendant et inversément
+        if(checkIfBothParentsEmployeOROneEmployeAndOneIndepOrUnknown(allocataireParent1.getWorktype(), allocataireParent2.getWorktype())) {
+            //Si les deux parents sont employés, on compare les salaires
+            if (allocataireParent1.getWorktype().equals("employe") && allocataireParent2.getWorktype().equals("employe")) {
+                if(allocataireParent1.getSalaire() == 0 && allocataireParent2.getSalaire() == 0)
+                    throw new RuntimeException("Impossible de déterminer le droit, salaires manquants");
+                return allocataireParent1.getSalaire().doubleValue() > allocataireParent2.getSalaire().doubleValue() ? PARENT_1 : PARENT_2;
             }
-            else if(p1WorkType.equals("employe")) {
+            //Sinon, le seul parent employé recevra les allocations
+            else if (allocataireParent1.getWorktype().equals("employe")) {
                 return PARENT_1;
-            }
-            else
+            } else
                 return PARENT_2;
-        return null;
+        }
+
+        throw new RuntimeException("Impossible de déterminer le droit");
     }
 
-    private boolean checkIfParentsBothEmployeOROneEmployeAndOneIndep(String p1WorkType, String p2WorkType){
-        if(p1WorkType.equals("employe") && p2WorkType.equals("independant"))
+    private boolean checkIfBothParentsEmployeOROneEmployeAndOneIndepOrUnknown(String p1WorkType, String p2WorkType){
+        if(p1WorkType.equals("employe") && (p2WorkType.equals("independant") || !p2WorkType.equals("employe")))
             return true;
-        if(p1WorkType.equals("independant") && p2WorkType.equals("employe"))
+        if((p1WorkType.equals("independant") || !p1WorkType.equals("employe")) && p2WorkType.equals("employe"))
             return true;
 
         return p1WorkType.equals("employe") && p2WorkType.equals("employe");

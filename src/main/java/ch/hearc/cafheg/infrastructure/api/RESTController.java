@@ -45,7 +45,13 @@ public class RESTController {
    */
   @PostMapping("/droits/quel-parent")
   public String getParentDroitAllocation(@RequestBody DroitAllocationDTO droitAllocationDTO) {
-    return inTransaction(() -> allocationService.getParentDroitAllocation(droitAllocationDTO));
+    return inTransaction(() -> {
+      try {
+        return allocationService.getParentDroitAllocation(droitAllocationDTO);
+      } catch (Exception e) {
+        throw new RuntimeException(e);
+      }
+    });
   }
 
   @GetMapping("/allocataires")

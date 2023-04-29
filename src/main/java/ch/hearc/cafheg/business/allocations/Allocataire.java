@@ -8,8 +8,8 @@ public class Allocataire {
   private final String nom;
   private final String prenom;
   private final String residence;
-  private final Boolean activiteLucrative;
-  private final Boolean autoriteParentale;
+  private final boolean activiteLucrative;
+  private final boolean autoriteParentale;
   private final String workplace;
   private final String worktype;
   private final Integer salaire;
@@ -44,5 +44,29 @@ public class Allocataire {
 
   public NoAVS getNoAVS() {
     return noAVS;
+  }
+
+  public String getResidence() {
+    return residence;
+  }
+
+  public boolean getActiviteLucrative() {
+    return activiteLucrative;
+  }
+
+  public boolean getAutoriteParentale() {
+    return autoriteParentale;
+  }
+
+  public String getWorkplace() {
+    return workplace;
+  }
+
+  public String getWorktype() {
+    return worktype;
+  }
+
+  public Integer getSalaire() {
+    return salaire;
   }
 }
