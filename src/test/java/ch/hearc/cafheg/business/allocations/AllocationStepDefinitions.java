@@ -80,7 +80,7 @@ public class AllocationStepDefinitions {
     }
 
     @Then("parent who will receive the CAF is {string}")
-    public void parentWithRights(String parentWithRights) {
+    public void parentWithRights(String parentWithRights) throws Exception {
         assertEquals(parentWithRights, allocationService.getParentDroitAllocation(dto));
     }
 }
