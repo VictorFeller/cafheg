@@ -3,6 +3,7 @@ package ch.hearc.cafheg.infrastructure.api;
 import static ch.hearc.cafheg.infrastructure.persistance.Database.inTransaction;
 
 import ch.hearc.cafheg.business.allocations.Allocataire;
+import ch.hearc.cafheg.business.allocations.AllocataireService;
 import ch.hearc.cafheg.business.allocations.Allocation;
 import ch.hearc.cafheg.business.allocations.AllocationService;
 import ch.hearc.cafheg.business.versements.VersementService;
@@ -21,13 +22,19 @@ import java.util.*;
 @RestController
 public class RESTController {
 
+  private final EnfantMapper enfantMapper = new EnfantMapper();
+  private final PDFExporter pdfExporter = new PDFExporter(enfantMapper);
+  private final VersementMapper versementMapper = new VersementMapper();
+  private final AllocationMapper allocationMapper = new AllocationMapper();
+  private final AllocataireMapper allocataireMapper = new AllocataireMapper(versementMapper);
   private final AllocationService allocationService;
   private final VersementService versementService;
+  private final AllocataireService allocataireService;
 
   public RESTController() {
-    this.allocationService = new AllocationService(new AllocataireMapper(), new AllocationMapper());
-    this.versementService = new VersementService(new VersementMapper(), new AllocataireMapper(),
-        new PDFExporter(new EnfantMapper()));
+    this.allocataireService = new AllocataireService(allocataireMapper);
+    this.allocationService = new AllocationService(allocataireMapper, allocationMapper);
+    this.versementService = new VersementService(versementMapper, allocataireMapper, pdfExporter);
   }
 
   /*
@@ -85,4 +92,10 @@ public class RESTController {
   public byte[] pdfVersements(@PathVariable("allocataireId") int allocataireId) {
     return inTransaction(() -> versementService.exportPDFVersements(allocataireId));
   }
+
+  @DeleteMapping("/allocataire")
+  public String deleteById(@RequestParam int allocataireId) {
+    return inTransaction(() -> allocataireService.deleteById(allocataireId));
+  }
+
 }

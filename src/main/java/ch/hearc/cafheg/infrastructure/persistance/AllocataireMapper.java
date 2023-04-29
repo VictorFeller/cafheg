@@ -11,9 +11,15 @@ import java.util.List;
 
 public class AllocataireMapper extends Mapper {
 
+  private final VersementMapper versementMapper;
   private static final String QUERY_FIND_ALL = "SELECT NOM,PRENOM,NO_AVS FROM ALLOCATAIRES";
   private static final String QUERY_FIND_WHERE_NOM_LIKE = "SELECT NOM,PRENOM,NO_AVS FROM ALLOCATAIRES WHERE NOM LIKE ?";
   private static final String QUERY_FIND_WHERE_NUMERO = "SELECT NO_AVS, NOM, PRENOM FROM ALLOCATAIRES WHERE NUMERO=?";
+  private static final String QUERY_DELETE_BY_NUMERO = "DELETE FROM ALLOCATAIRES WHERE NUMERO = ?";
+
+  public AllocataireMapper(VersementMapper versementMapper) {
+    this.versementMapper = versementMapper;
+  }
 
   public List<Allocataire> findAll(String likeNom) {
     System.out.println("findAll() " + likeNom);
@@ -69,4 +75,26 @@ public class AllocataireMapper extends Mapper {
       throw new RuntimeException(e);
     }
   }
+
+  public String deleteById(int id) {
+    int deleted = -1;
+    System.out.println("deleteById() " + id);
+    Connection connection = activeJDBCConnection();
+    try {
+      if (versementMapper.findVersementsByAllocataireId(id) == 0) {
+        System.out.println("SQL:" + QUERY_DELETE_BY_NUMERO);
+        PreparedStatement preparedStatement = connection.prepareStatement(QUERY_DELETE_BY_NUMERO);
+        preparedStatement.setInt(1, id);
+        deleted = preparedStatement.executeUpdate();
+      }
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+    if (deleted > 0) {
+      return "Allocataire supprimé";
+    } else {
+      return "Pas possible de supprimer";
+    }
+  }
+
 }
