@@ -2,7 +2,9 @@ package ch.hearc.cafheg.business.allocations;
 
 import ch.hearc.cafheg.business.common.Montant;
 import java.time.LocalDate;
+import lombok.Getter;
 
+@Getter
 public class Allocation {
 
   private final Montant montant;
@@ -15,21 +17,5 @@ public class Allocation {
     this.canton = canton;
     this.debut = debut;
     this.fin = fin;
-  }
-
-  public Montant getMontant() {
-    return montant;
-  }
-
-  public Canton getCanton() {
-    return canton;
-  }
-
-  public LocalDate getDebut() {
-    return debut;
-  }
-
-  public LocalDate getFin() {
-    return fin;
   }
 }

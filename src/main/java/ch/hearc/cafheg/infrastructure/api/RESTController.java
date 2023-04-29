@@ -6,6 +6,7 @@ import ch.hearc.cafheg.business.allocations.Allocataire;
 import ch.hearc.cafheg.business.allocations.Allocation;
 import ch.hearc.cafheg.business.allocations.AllocationService;
 import ch.hearc.cafheg.business.versements.VersementService;
+import ch.hearc.cafheg.infrastructure.api.dto.DroitAllocationDTO;
 import ch.hearc.cafheg.infrastructure.pdf.PDFExporter;
 import ch.hearc.cafheg.infrastructure.persistance.AllocataireMapper;
 import ch.hearc.cafheg.infrastructure.persistance.AllocationMapper;
@@ -43,8 +44,14 @@ public class RESTController {
   }
    */
   @PostMapping("/droits/quel-parent")
-  public String getParentDroitAllocation(@RequestBody Map<String, Object> params) {
-    return inTransaction(() -> allocationService.getParentDroitAllocation(params));
+  public String getParentDroitAllocation(@RequestBody DroitAllocationDTO droitAllocationDTO) {
+    return inTransaction(() -> {
+      try {
+        return allocationService.getParentDroitAllocation(droitAllocationDTO);
+      } catch (Exception e) {
+        throw new RuntimeException(e);
+      }
+    });
   }
 
   @GetMapping("/allocataires")

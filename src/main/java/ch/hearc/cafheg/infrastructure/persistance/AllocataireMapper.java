@@ -42,7 +42,7 @@ public class AllocataireMapper extends Mapper {
           System.out.println("ResultSet#next");
           allocataires
               .add(new Allocataire(new NoAVS(resultSet.getString(3)), resultSet.getString(2),
-                  resultSet.getString(1)));
+                  resultSet.getString(1), null, null, null, null, null, null));
         }
       }
       System.out.println("Allocataires trouvés " + allocataires.size());
@@ -64,7 +64,7 @@ public class AllocataireMapper extends Mapper {
       resultSet.next();
       System.out.println("Allocataire mapping");
       return new Allocataire(new NoAVS(resultSet.getString(1)),
-          resultSet.getString(2), resultSet.getString(3));
+          resultSet.getString(2), resultSet.getString(3), null, null, null, null, null, null);
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }

@@ -1,7 +1,8 @@
 package ch.hearc.cafheg.business.versements;
 
 import ch.hearc.cafheg.business.allocations.NoAVS;
-
+import lombok.Getter;
+@Getter
 public class Enfant {
 
   private final NoAVS noAVS;
@@ -12,17 +13,5 @@ public class Enfant {
     this.noAVS = noAVS;
     this.nom = nom;
     this.prenom = prenom;
-  }
-
-  public NoAVS getNoAVS() {
-    return noAVS;
-  }
-
-  public String getNom() {
-    return nom;
-  }
-
-  public String getPrenom() {
-    return prenom;
   }
 }
