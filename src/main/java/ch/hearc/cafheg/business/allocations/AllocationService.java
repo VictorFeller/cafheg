@@ -1,4 +1,3 @@
-//TODO utiliser des constantes
 //TODO utiliser NE au lien de Neuchâtel
 //TODO clean code
 package ch.hearc.cafheg.business.allocations;
@@ -13,6 +12,8 @@ public class AllocationService {
 
     private static final String PARENT_1 = "Parent1";
     private static final String PARENT_2 = "Parent2";
+    public static final String WORK_TYPE_INDEPENDANT = "independant";
+    public static final String WORK_TYPE_EMPLOYE = "employe";
 
     private final AllocataireMapper allocataireMapper;
     private final AllocationMapper allocationMapper;
@@ -60,34 +61,34 @@ public class AllocationService {
 
 
         System.out.println("Déterminer quel parent a le droit aux allocations");
-        String eR = String.valueOf(droitAllocationDTO.getEnfantResidence().orElse(""));
+        String eR = droitAllocationDTO.getEnfantResidence().orElse("");
         boolean pEnsemble = droitAllocationDTO.getParentsEnsemble().orElse(false);
 
 
 
         //Au moins un des deux parents a une activité lucrative
-        if(!allocataireParent1.getActiviteLucrative() && !allocataireParent2.getActiviteLucrative())
+        if(!allocataireParent1.isActiviteLucrative() && !allocataireParent2.isActiviteLucrative())
             throw new RuntimeException("Aucun parent n'exerce d'activité lucrative");
         //Seul le parent 1 a une activité lucrative
-        if(allocataireParent1.getActiviteLucrative() && !allocataireParent2.getActiviteLucrative()){
+        if(allocataireParent1.isActiviteLucrative() && !allocataireParent2.isActiviteLucrative()){
             return PARENT_1;
         }
 
         //Seul le parent 2 a une activité lucrative
-        if(!allocataireParent1.getActiviteLucrative() && allocataireParent2.getActiviteLucrative()) {
+        if(!allocataireParent1.isActiviteLucrative() && allocataireParent2.isActiviteLucrative()) {
             return PARENT_2;
         }
 
         //Contrôle qu'au moins un des deux parents ait l'autorité parentale
-        if(!allocataireParent1.getAutoriteParentale() && !allocataireParent2.getAutoriteParentale())
+        if(!allocataireParent1.isAutoriteParentale() && !allocataireParent2.isAutoriteParentale())
             throw new RuntimeException("Aucun des deux parents n'a l'autorité parentale");
         //Seul le parent 1 a l'autorité parentale
-        if (allocataireParent1.getAutoriteParentale() && !allocataireParent2.getAutoriteParentale()) {
+        if (allocataireParent1.isAutoriteParentale() && !allocataireParent2.isAutoriteParentale()) {
             return PARENT_1;
         }
 
         //Seul le parent 2 a l'autorité parentale
-        if (!allocataireParent1.getAutoriteParentale() && allocataireParent2.getAutoriteParentale()) {
+        if (!allocataireParent1.isAutoriteParentale() && allocataireParent2.isAutoriteParentale()) {
             return PARENT_2;
         }
 
@@ -116,7 +117,7 @@ public class AllocationService {
 
         //Contrôle le worktype
         //Les deux parents sont indépendants
-        if(allocataireParent1.getWorktype().equals("independant") && allocataireParent2.getWorktype().equals("independant")) {
+        if(allocataireParent1.getWorktype().equals(WORK_TYPE_INDEPENDANT) && allocataireParent2.getWorktype().equals(WORK_TYPE_INDEPENDANT)) {
             if(allocataireParent1.getSalaire() == 0 && allocataireParent2.getSalaire() == 0)
                 throw new RuntimeException("Impossible de déterminer le droit, salaires manquants");
             return allocataireParent1.getSalaire().doubleValue() > allocataireParent2.getSalaire().doubleValue() ? PARENT_1 : PARENT_2;
@@ -125,13 +126,13 @@ public class AllocationService {
         //Les deux parents sont employés ou un est salarié et l'autre indépendant et inversément
         if(checkIfBothParentsEmployeOROneEmployeAndOneIndepOrUnknown(allocataireParent1.getWorktype(), allocataireParent2.getWorktype())) {
             //Si les deux parents sont employés, on compare les salaires
-            if (allocataireParent1.getWorktype().equals("employe") && allocataireParent2.getWorktype().equals("employe")) {
+            if (allocataireParent1.getWorktype().equals(WORK_TYPE_EMPLOYE) && allocataireParent2.getWorktype().equals(WORK_TYPE_EMPLOYE)) {
                 if(allocataireParent1.getSalaire() == 0 && allocataireParent2.getSalaire() == 0)
                     throw new RuntimeException("Impossible de déterminer le droit, salaires manquants");
                 return allocataireParent1.getSalaire().doubleValue() > allocataireParent2.getSalaire().doubleValue() ? PARENT_1 : PARENT_2;
             }
             //Sinon, le seul parent employé recevra les allocations
-            else if (allocataireParent1.getWorktype().equals("employe")) {
+            else if (allocataireParent1.getWorktype().equals(WORK_TYPE_EMPLOYE)) {
                 return PARENT_1;
             } else
                 return PARENT_2;
@@ -141,11 +142,11 @@ public class AllocationService {
     }
 
     private boolean checkIfBothParentsEmployeOROneEmployeAndOneIndepOrUnknown(String p1WorkType, String p2WorkType){
-        if(p1WorkType.equals("employe") && (p2WorkType.equals("independant") || !p2WorkType.equals("employe")))
+        if(p1WorkType.equals(WORK_TYPE_EMPLOYE) && (p2WorkType.equals(WORK_TYPE_INDEPENDANT) || !p2WorkType.equals(WORK_TYPE_EMPLOYE)))
             return true;
-        if((p1WorkType.equals("independant") || !p1WorkType.equals("employe")) && p2WorkType.equals("employe"))
+        if((p1WorkType.equals(WORK_TYPE_INDEPENDANT) || !p1WorkType.equals(WORK_TYPE_EMPLOYE)) && p2WorkType.equals(WORK_TYPE_EMPLOYE))
             return true;
 
-        return p1WorkType.equals("employe") && p2WorkType.equals("employe");
+        return p1WorkType.equals(WORK_TYPE_EMPLOYE) && p2WorkType.equals(WORK_TYPE_EMPLOYE);
     }
 }

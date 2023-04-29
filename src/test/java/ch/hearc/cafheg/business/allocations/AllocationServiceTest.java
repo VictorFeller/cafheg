@@ -1,6 +1,5 @@
 package ch.hearc.cafheg.business.allocations;
 
-import static org.assertj.core.api.Assertions.as;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -11,7 +10,6 @@ import ch.hearc.cafheg.infrastructure.persistance.AllocationMapper;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.*;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -19,7 +17,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.Mockito;
 
 class AllocationServiceTest {
@@ -83,39 +80,12 @@ class AllocationServiceTest {
     );
   }
 
-//  @ParameterizedTest
-//  @MethodSource("hashMapProviderParent")
-//  void getParentDroitAllocation_GivenRESTControllerExample_ShouldBeParent2(Map<String, Object> parameters) {
-//    assertAll(
-//            () -> assertThat(parameters.get("enfantResidence")).isEqualTo("Neuchâtel"),
-//            () -> assertThat(parameters.get("parent1Residence")).isEqualTo("Neuchâtel"),
-//            () -> assertThat(parameters.get("parent2Residence")).isEqualTo("Bienne"),
-//            () -> assertThat(parameters.get("parent1ActiviteLucrative")).isEqualTo(true),
-//            () -> assertThat(parameters.get("parent2ActiviteLucrative")).isEqualTo(true),
-//            () -> assertThat(parameters.get("parent1Salaire")).isEqualTo(2500),
-//            () -> assertThat(parameters.get("parent2Salaire")).isEqualTo(3000),
-//            () -> assertThat(allocationService.getParentDroitAllocation(parameters)).isEqualTo("Parent2")
-//    );
-//  }
-
   @ParameterizedTest
   @MethodSource("hashMapProviderParent")
   void getParentDroitAllocation_GivenRESTControllerExample_ShouldBeParent2(DroitAllocationDTO droitAllocationDTO, String expected) throws Exception {
     assertEquals(expected, allocationService.getParentDroitAllocation(droitAllocationDTO));
   }
 
-//  static Stream<Map<String, Object>> hashMapProviderParent() {
-//    return Stream.of(
-//            //Scenario RESTController
-//            Map.of("enfantResidence", "Neuchâtel",
-//                    "parent1Residence","Neuchâtel",
-//                    "parent2Residence", "Bienne",
-//                    "parent1ActiviteLucrative",true,
-//                    "parent2ActiviteLucrative", true,
-//                    "parent1Salaire", 2500,
-//                    "parent2Salaire", 3000)
-//    );
-//  }
   static Stream<Arguments> hashMapProviderParent() {
     return Stream.of(
             //Scenario A

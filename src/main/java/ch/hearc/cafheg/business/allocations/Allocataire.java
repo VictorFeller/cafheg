@@ -1,7 +1,8 @@
 package ch.hearc.cafheg.business.allocations;
 
-import java.util.Optional;
+import lombok.Getter;
 
+@Getter
 public class Allocataire {
 
   private final NoAVS noAVS;
@@ -27,46 +28,10 @@ public class Allocataire {
     this.nom = nom;
     this.prenom = prenom;
     this.residence = residence;
-    this.activiteLucrative = activiteLucrative;
-    this.autoriteParentale = autoriteParentale;
+    this.activiteLucrative = activiteLucrative != null ? activiteLucrative : false;
+    this.autoriteParentale = autoriteParentale != null ? autoriteParentale : false;
     this.workplace = workplace;
     this.worktype = worktype;
     this.salaire = salaire;
-  }
-
-  public String getNom() {
-    return nom;
-  }
-
-  public String getPrenom() {
-    return prenom;
-  }
-
-  public NoAVS getNoAVS() {
-    return noAVS;
-  }
-
-  public String getResidence() {
-    return residence;
-  }
-
-  public boolean getActiviteLucrative() {
-    return activiteLucrative;
-  }
-
-  public boolean getAutoriteParentale() {
-    return autoriteParentale;
-  }
-
-  public String getWorkplace() {
-    return workplace;
-  }
-
-  public String getWorktype() {
-    return worktype;
-  }
-
-  public Integer getSalaire() {
-    return salaire;
   }
 }

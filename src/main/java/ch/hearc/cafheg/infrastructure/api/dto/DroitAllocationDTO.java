@@ -1,8 +1,9 @@
 package ch.hearc.cafheg.infrastructure.api.dto;
 
 import java.util.Optional;
-import java.util.stream.Stream;
+import lombok.Getter;
 
+@Getter
 public class DroitAllocationDTO {
     private Optional<String> enfantResidence;
     private Optional<String> parent1Residence;
@@ -34,61 +35,5 @@ public class DroitAllocationDTO {
         this.parentsEnsemble = Optional.ofNullable(parentsEnsemble);
         this.parent1Salaire = Optional.ofNullable(parent1Salaire);
         this.parent2Salaire = Optional.ofNullable(parent2Salaire);
-    }
-
-    public Optional<String> getEnfantResidence() {
-        return enfantResidence;
-    }
-
-    public Optional<String> getParent1Residence() {
-        return parent1Residence;
-    }
-
-    public Optional<String> getParent2Residence() {
-        return parent2Residence;
-    }
-
-    public Optional<Boolean> getParent1ActiviteLucrative() {
-        return parent1ActiviteLucrative;
-    }
-
-    public Optional<Boolean> getParent2ActiviteLucrative() {
-        return parent2ActiviteLucrative;
-    }
-
-    public Optional<Boolean> getParent1AutoriteParentale() {
-        return parent1AutoriteParentale;
-    }
-
-    public Optional<Boolean> getParent2AutoriteParentale() {
-        return parent2AutoriteParentale;
-    }
-
-    public Optional<String> getParent1WorkPlace() {
-        return parent1WorkPlace;
-    }
-
-    public Optional<String> getParent2WorkPlace() {
-        return parent2WorkPlace;
-    }
-
-    public Optional<String> getParent1WorkType() {
-        return parent1WorkType;
-    }
-
-    public Optional<String> getParent2WorkType() {
-        return parent2WorkType;
-    }
-
-    public Optional<Boolean> getParentsEnsemble() {
-        return parentsEnsemble;
-    }
-
-    public Optional<Integer> getParent1Salaire() {
-        return parent1Salaire;
-    }
-
-    public Optional<Integer> getParent2Salaire() {
-        return parent2Salaire;
     }
 }
