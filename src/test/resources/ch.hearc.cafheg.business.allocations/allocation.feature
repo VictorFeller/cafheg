@@ -20,7 +20,6 @@ Feature: Allocation Service
       | 'true'                   | 'FR'             | 'FR'             | 'employe'      | 4000          | 'true'           | 'true'                   | 'FR'             | 'FR'             | 'employe'      | 6700          | 'true'           | 'FR'           | 'true'       | 'Parent2'        |
       | 'true'                   | 'FR'             | 'FR'             | 'employe'      | 4000          | 'true'           | 'true'                   | 'FR'             | 'FR'             | 'independant'  | 6700          | 'true'           | 'FR'           | 'true'       | 'Parent1'        |
       | 'true'                   | 'FR'             | 'FR'             | 'independant'   | 4000          | 'true'           | 'true'                   | 'FR'             | 'FR'             | 'independant'  | 6700          | 'true'           | 'FR'           | 'true'       | 'Parent2'        |
-      | 'true'                   | 'FR'             | 'FR'             | 'independant'   | 4000          | 'true'           | 'true'                   | 'FR'             | 'FR'             | 'independant'  | 6700          | 'true'           | 'FR'           | 'true'       | 'Parent2'        |
 
 
 
