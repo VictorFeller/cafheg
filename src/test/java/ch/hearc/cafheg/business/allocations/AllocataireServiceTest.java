@@ -51,24 +51,24 @@ public class AllocataireServiceTest {
 
     @Test
     void testSuppression() {
-        //Récup donnée test
-        Allocataire allocAvecVers = Database.inTransaction(() -> allocataireMapper.findById(1));
-        Allocataire allocSansVers = Database.inTransaction(() -> allocataireMapper.findById(21));
+
         //suppression allocataire2 OK
-        assertDoesNotThrow(() -> Database.inTransaction(() -> allocataireMapper.delete(allocSansVers)));
+        assertEquals("Allocataire supprimé", Database.inTransaction(() -> allocataireMapper.deleteById(21)));
         // No data found
-        assertThrows(SQLException.class, () -> Database.inTransaction(() ->allocataireMapper.findById(21)));
+        assertThrows(RuntimeException.class, () -> Database.inTransaction(() -> allocataireMapper.findById(21)));
+
         //suppression allocataire NotOK
-        assertThrows(SQLException.class, () -> Database.inTransaction(() ->allocataireMapper.delete(allocAvecVers)));
+        assertEquals("Pas possible de supprimer", Database.inTransaction(() -> allocataireMapper.deleteById(1)));
         // Data found
-        assertDoesNotThrow(() -> Database.inTransaction(() ->allocataireMapper.findById(21)));
+        assertDoesNotThrow(() -> Database.inTransaction(() ->allocataireMapper.findById(1)));
 
         //Récupérer les data dans la DB
-        List<Allocataire> allAllocataires = new ArrayList<>();
-        allAllocataires = Database.inTransaction(() ->allocataireMapper.findAll(null));
+        List<Allocataire> allAllocataires = Database.inTransaction(() -> allocataireMapper.findAll(null));
+        Allocataire allocNonSupp = Database.inTransaction(() -> allocataireMapper.findById(1));
+
         //tester les suppressions effectives
-        assertFalse(allAllocataires.contains(allocSansVers));
-        assertTrue(allAllocataires.contains(allocAvecVers));
+        assertThrows(RuntimeException.class, () -> Database.inTransaction(() -> allocataireMapper.findById(21)));
+        assertTrue(allAllocataires.stream().anyMatch(a -> a.getNoAVS().getValue() == allocNonSupp.getNoAVS().value));
 
     }
 
@@ -103,7 +103,7 @@ public class AllocataireServiceTest {
         //Update AVS
         NoAVS newNoAVS = new NoAVS("123.4567.8910");
         allocataire.setNoAVS(newNoAVS);
-        //Doit levé une exception, j'ai mis SQLException mais il faut définir comment on va gérer ça
+        //Doit lever une exception, j'ai mis SQLException mais il faut définir comment on va gérer ça
         assertThrows(SQLException.class, () -> Database.inTransaction(() -> allocataireMapper.update(allocataire)));
     }
 

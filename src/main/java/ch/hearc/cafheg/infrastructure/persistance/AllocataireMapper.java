@@ -104,10 +104,6 @@ public class AllocataireMapper extends Mapper {
     return false;
   }
 
-  public boolean delete(Allocataire allocataire){
-    return false;
-  }
-
   public Allocataire findByNoAVS(String noAVS){
     return null;
   }
