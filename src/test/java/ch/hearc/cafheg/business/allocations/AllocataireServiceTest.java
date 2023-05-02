@@ -5,6 +5,8 @@ import ch.hearc.cafheg.business.versements.VersementAllocation;
 import ch.hearc.cafheg.business.versements.VersementParentEnfant;
 import ch.hearc.cafheg.infrastructure.persistance.AllocataireMapper;
 
+import ch.hearc.cafheg.infrastructure.persistance.Database;
+import ch.hearc.cafheg.infrastructure.persistance.Migrations;
 import ch.hearc.cafheg.infrastructure.persistance.VersementMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,6 +15,7 @@ import org.mockito.Mockito;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.math.BigDecimal;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -29,51 +32,43 @@ public class AllocataireServiceTest {
 
     @BeforeEach
     void setUp() {
+        //Simuler data de prod
+        Database testDatabase = new Database();
+        Migrations testMigrations = new Migrations(testDatabase);
+        testDatabase.start();
+        testMigrations.start();
+        //Instenciation des mappers
         versementMapper = new VersementMapper();
         allocataireMapper = new AllocataireMapper(versementMapper);
     }
 
     @Test
-    void GetAllocataire(){
-        Allocataire allocataire = new Allocataire(
-                new NoAVS("123.4567.8910"), "Dupont", "Pierre", "Lausanne", true,
-                true, "ACME Corp", "Ingénieur", 80000
-        );
-        List<Allocataire> allAllocataires = new ArrayList<>();
-        allAllocataires = allocataireMapper.findAll(null);
+    void GetAllocataire() {
+        List<Allocataire> allAllocataires = Database.inTransaction(() -> allocataireMapper.findAll(null));
         assertFalse(allAllocataires.isEmpty());
     }
 
+
     @Test
     void testSuppression() {
-        //ajout data
-        Allocataire allocataire = new Allocataire(
-                new NoAVS("123.4567.8910"), "Dupont", "Pierre", "Lausanne", true,
-                true, "ACME Corp", "Ingénieur", 80000
-        );
-        Allocataire allocataire2 = new Allocataire(
-                new NoAVS("987.6543.2101"), "Martin", "Sophie", "Genève", false,
-                true, "Tech Solutions", "Responsable RH", 75000
-        );
-        VersementParentEnfant versementParentEnfant = new VersementParentEnfant(AllocataireMapper.findByAVS(allocataire), 2L, new Montant(BigDecimal.valueOf(500)));
-        versementMapper.add(allocataire,versementParentEnfant);
-
+        //Récup donnée test
+        Allocataire allocAvecVers = Database.inTransaction(() -> allocataireMapper.findById(1));
+        Allocataire allocSansVers = Database.inTransaction(() -> allocataireMapper.findById(21));
         //suppression allocataire2 OK
-        assertDoesNotThrow(() -> allocataireMapper.delete(allocataire2));
+        assertDoesNotThrow(() -> Database.inTransaction(() -> allocataireMapper.delete(allocSansVers)));
+        // No data found
+        assertThrows(SQLException.class, () -> Database.inTransaction(() ->allocataireMapper.findById(21)));
         //suppression allocataire NotOK
-        assertThrows(SQLException.class, () -> allocataireMapper.delete(allocataire));
+        assertThrows(SQLException.class, () -> Database.inTransaction(() ->allocataireMapper.delete(allocAvecVers)));
+        // Data found
+        assertDoesNotThrow(() -> Database.inTransaction(() ->allocataireMapper.findById(21)));
+
         //Récupérer les data dans la DB
         List<Allocataire> allAllocataires = new ArrayList<>();
-        allAllocataires = allocataireMapper.findAll(null);
+        allAllocataires = Database.inTransaction(() ->allocataireMapper.findAll(null));
         //tester les suppressions effectives
-        assertFalse(allAllocataires.contains(allocataire2));
-        assertTrue(allAllocataires.contains(allocataire));
-        //suppression du versement d'allocataire
-        versementMapper.delete(allocataire);
-        //suppression OK
-        assertDoesNotThrow(() -> allocataireMapper.delete(allocataire));
-        assertFalse(allAllocataires.contains(allocataire2));
-
+        assertFalse(allAllocataires.contains(allocSansVers));
+        assertTrue(allAllocataires.contains(allocAvecVers));
 
     }
 
@@ -84,14 +79,14 @@ public class AllocataireServiceTest {
                 new NoAVS("123.4567.8910"), "Dupont", "Pierre", "Lausanne", true,
                 true, "ACME Corp", "employee", 80000
         );
-        allocataireMapper.add(allocataire);
+        Database.inTransaction(() -> allocataireMapper.add(allocataire));
         //Modifier nom/prénom
-        Allocataire addedAllocataire = allocataireMapper.findByAVS(allocataire.getNoAVS());
+        Allocataire addedAllocataire = Database.inTransaction(() -> allocataireMapper.findByNoAVS(allocataire.getNoAVS().getValue()));
         addedAllocataire.setNom("Jean");
         addedAllocataire.setPrenom("Dujardin");
-        allocataireMapper.updateAllocataire(addedAllocataire);
+        Database.inTransaction(() -> allocataireMapper.update(addedAllocataire));
         //Tester si modifier en DB
-        Allocataire updatedAllocataire = AllocataireMapper.getAllocataireByAVS(addedAllocataire.getNoAVS());
+        Allocataire updatedAllocataire = Database.inTransaction(() -> allocataireMapper.findByNoAVS(addedAllocataire.getNoAVS().getValue()));
         assertEquals("Jean", updatedAllocataire.getPrenom());
         assertEquals("Dujardin", updatedAllocataire.getNom());
 
@@ -104,12 +99,12 @@ public class AllocataireServiceTest {
                 new NoAVS("987.6543.2101"), "Martin", "Sophie", "Genève", false,
                 true, "Tech Solutions", "independant", 75000
         );
-        allocataireMapper.add(allocataire);
+        Database.inTransaction(() -> allocataireMapper.add(allocataire));
         //Update AVS
         NoAVS newNoAVS = new NoAVS("123.4567.8910");
-        allocataire.setAVS(newNoAVS);
+        allocataire.setNoAVS(newNoAVS);
         //Doit levé une exception, j'ai mis SQLException mais il faut définir comment on va gérer ça
-        assertThrows(SQLException.class, () -> allocataireMapper.updateAllocataire(allocataire));
+        assertThrows(SQLException.class, () -> Database.inTransaction(() -> allocataireMapper.update(allocataire)));
     }
 
 }

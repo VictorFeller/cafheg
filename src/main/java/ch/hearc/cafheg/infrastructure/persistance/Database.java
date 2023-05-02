@@ -52,6 +52,26 @@ public class Database {
     }
   }
 
+  public static void inTransaction(Runnable inTransaction) {
+    System.out.println("inTransaction#start");
+    try {
+      System.out.println("inTransaction#getConnection");
+      connection.set(dataSource.getConnection());
+      inTransaction.run();
+    } catch (Exception e) {
+      throw new RuntimeException(e);
+    } finally {
+      try {
+        System.out.println("inTransaction#closeConnection");
+        connection.get().close();
+      } catch (SQLException e) {
+        throw new RuntimeException(e);
+      }
+      System.out.println("inTransaction#end");
+      connection.remove();
+    }
+  }
+
   DataSource dataSource() {
     return dataSource;
   }

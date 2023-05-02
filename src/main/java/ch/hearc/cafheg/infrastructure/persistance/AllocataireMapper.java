@@ -97,4 +97,19 @@ public class AllocataireMapper extends Mapper {
     }
   }
 
+  public void add(Allocataire allocataire){
+  }
+
+  public boolean update(Allocataire allocataire){
+    return false;
+  }
+
+  public boolean delete(Allocataire allocataire){
+    return false;
+  }
+
+  public Allocataire findByNoAVS(String noAVS){
+    return null;
+  }
+
 }
