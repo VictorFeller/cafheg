@@ -16,6 +16,7 @@ public class AllocataireMapper extends Mapper {
   private static final String QUERY_FIND_WHERE_NOM_LIKE = "SELECT NOM,PRENOM,NO_AVS FROM ALLOCATAIRES WHERE NOM LIKE ?";
   private static final String QUERY_FIND_WHERE_NUMERO = "SELECT NO_AVS, NOM, PRENOM FROM ALLOCATAIRES WHERE NUMERO=?";
   private static final String QUERY_DELETE_BY_NUMERO = "DELETE FROM ALLOCATAIRES WHERE NUMERO = ?";
+  private static final String QUERY_UPDATE_ALLOCATAIRE = "UPDATE ALLOCATAIRES SET NOM = ?, PRENOM = ? WHERE NO_AVS = ?";
 
   public AllocataireMapper(VersementMapper versementMapper) {
     this.versementMapper = versementMapper;
@@ -100,8 +101,17 @@ public class AllocataireMapper extends Mapper {
   public void add(Allocataire allocataire){
   }
 
-  public boolean update(Allocataire allocataire){
-    return false;
+  public void update(Allocataire allocataire) {
+    System.out.println("update() " + allocataire.getNoAVS().getValue());
+    Connection connection = activeJDBCConnection();
+    try (PreparedStatement preparedStatement = connection.prepareStatement(QUERY_UPDATE_ALLOCATAIRE)) {
+      preparedStatement.setString(1, allocataire.getNom());
+      preparedStatement.setString(2, allocataire.getPrenom());
+      preparedStatement.setString(3, allocataire.getNoAVS().value);
+      preparedStatement.executeUpdate();
+    } catch(SQLException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   public Allocataire findByNoAVS(String noAVS){

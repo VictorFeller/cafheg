@@ -58,6 +58,7 @@ public class Database {
       System.out.println("inTransaction#getConnection");
       connection.set(dataSource.getConnection());
       inTransaction.run();
+      activeJDBCConnection().commit();
     } catch (Exception e) {
       throw new RuntimeException(e);
     } finally {

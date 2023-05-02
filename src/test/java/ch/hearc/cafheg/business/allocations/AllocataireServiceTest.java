@@ -74,19 +74,15 @@ public class AllocataireServiceTest {
 
     @Test
     void testUpdateName() {
-        //ajout data
-        Allocataire allocataire = new Allocataire(
-                new NoAVS("123.4567.8910"), "Dupont", "Pierre", "Lausanne", true,
-                true, "ACME Corp", "employee", 80000
-        );
-        Database.inTransaction(() -> allocataireMapper.add(allocataire));
+
         //Modifier nom/prénom
-        Allocataire addedAllocataire = Database.inTransaction(() -> allocataireMapper.findByNoAVS(allocataire.getNoAVS().getValue()));
-        addedAllocataire.setNom("Jean");
-        addedAllocataire.setPrenom("Dujardin");
-        Database.inTransaction(() -> allocataireMapper.update(addedAllocataire));
+        Allocataire allocataire = Database.inTransaction(() -> allocataireMapper.findById(1));
+        allocataire.setNom("Dujardin");
+        allocataire.setPrenom("Jean");
+        Database.inTransaction(() -> allocataireMapper.update(allocataire));
+
         //Tester si modifier en DB
-        Allocataire updatedAllocataire = Database.inTransaction(() -> allocataireMapper.findByNoAVS(addedAllocataire.getNoAVS().getValue()));
+        Allocataire updatedAllocataire = Database.inTransaction(() -> allocataireMapper.findById(1));
         assertEquals("Jean", updatedAllocataire.getPrenom());
         assertEquals("Dujardin", updatedAllocataire.getNom());
 
