@@ -23,19 +23,19 @@ public class VersementMapper extends Mapper {
   public List<VersementAllocationNaissance> findAllVersementAllocationNaissance() {
     System.out.println("findAllVersementAllocationNaissance()");
     Connection connection = activeJDBCConnection();
-      try {
-        PreparedStatement preparedStatement = connection.prepareStatement(QUERY_FIND_ALL_ALLOCATIONS_NAISSANCE);
-        ResultSet resultSet = preparedStatement.executeQuery();
+    try (PreparedStatement preparedStatement = connection.prepareStatement(QUERY_FIND_ALL_ALLOCATIONS_NAISSANCE)) {
+      try (ResultSet resultSet = preparedStatement.executeQuery()) {
         List<VersementAllocationNaissance> versements = new ArrayList<>();
         while (resultSet.next()) {
           System.out.println("resultSet#next");
           versements.add(
-              new VersementAllocationNaissance(new Montant(resultSet.getBigDecimal(2)),
-                  resultSet.getDate(1).toLocalDate()));
+                  new VersementAllocationNaissance(new Montant(resultSet.getBigDecimal(2)),
+                          resultSet.getDate(1).toLocalDate()));
 
         }
         return versements;
-      } catch (SQLException e) {
+      }
+    } catch (SQLException e) {
       throw new RuntimeException(e);
     }
   }
@@ -43,18 +43,18 @@ public class VersementMapper extends Mapper {
   public List<VersementAllocation> findAllVersementAllocation() {
     System.out.println("findAllVersementAllocation()");
     Connection connection = activeJDBCConnection();
-    try {
-      PreparedStatement preparedStatement = connection.prepareStatement(QUERY_FIND_ALL_VERSEMENTS);
-      ResultSet resultSet = preparedStatement.executeQuery();
-      List<VersementAllocation> versements = new ArrayList<>();
-      while (resultSet.next()) {
-        System.out.println("resultSet#next");
-        versements.add(
-            new VersementAllocation(new Montant(resultSet.getBigDecimal(2)),
-                resultSet.getDate(1).toLocalDate()));
+    try (PreparedStatement preparedStatement = connection.prepareStatement(QUERY_FIND_ALL_VERSEMENTS)) {
+      try (ResultSet resultSet = preparedStatement.executeQuery()) {
+        List<VersementAllocation> versements = new ArrayList<>();
+        while (resultSet.next()) {
+          System.out.println("resultSet#next");
+          versements.add(
+                  new VersementAllocation(new Montant(resultSet.getBigDecimal(2)),
+                          resultSet.getDate(1).toLocalDate()));
 
+        }
+        return versements;
       }
-      return versements;
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }
@@ -63,18 +63,18 @@ public class VersementMapper extends Mapper {
   public List<VersementParentEnfant> findVersementParentEnfant() {
     System.out.println("findVersementParentEnfant()");
     Connection connection = activeJDBCConnection();
-    try {
-      PreparedStatement preparedStatement = connection.prepareStatement(QUERY_FIND_ALL_VERSEMENTS_PARENTS_ENFANTS);
-      ResultSet resultSet = preparedStatement.executeQuery();
-      List<VersementParentEnfant> versements = new ArrayList<>();
-      System.out.println("resultSet#next");
-      while (resultSet.next()) {
-        versements.add(
-            new VersementParentEnfant(resultSet.getLong(1), resultSet.getLong(2),
-                new Montant(resultSet.getBigDecimal(3))));
+    try (PreparedStatement preparedStatement = connection.prepareStatement(QUERY_FIND_ALL_VERSEMENTS_PARENTS_ENFANTS)) {
+      try (ResultSet resultSet = preparedStatement.executeQuery()) {
+        List<VersementParentEnfant> versements = new ArrayList<>();
+        System.out.println("resultSet#next");
+        while (resultSet.next()) {
+          versements.add(
+                  new VersementParentEnfant(resultSet.getLong(1), resultSet.getLong(2),
+                          new Montant(resultSet.getBigDecimal(3))));
 
+        }
+        return versements;
       }
-      return versements;
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }
@@ -83,34 +83,34 @@ public class VersementMapper extends Mapper {
   public List<VersementParentParMois> findVersementParentEnfantParMois() {
     System.out.println("findVersementParentEnfantParMois()");
     Connection connection = activeJDBCConnection();
-    try {
-      PreparedStatement preparedStatement = connection.prepareStatement(QUERY_FIND_ALL_VERSEMENTS_PARENTS_ENFANTS_PAR_MOIS);
-      ResultSet resultSet = preparedStatement.executeQuery();
-      List<VersementParentParMois> versements = new ArrayList<>();
-      while (resultSet.next()) {
-        System.out.println("resultSet#next");
-        versements.add(
-            new VersementParentParMois(resultSet.getLong(1),
-                new Montant(resultSet.getBigDecimal(2)),
-                resultSet.getDate(3).toLocalDate(), resultSet.getDate(4).toLocalDate()));
+    try (PreparedStatement preparedStatement = connection.prepareStatement(QUERY_FIND_ALL_VERSEMENTS_PARENTS_ENFANTS_PAR_MOIS)) {
+      try (ResultSet resultSet = preparedStatement.executeQuery()) {
+        List<VersementParentParMois> versements = new ArrayList<>();
+        while (resultSet.next()) {
+          System.out.println("resultSet#next");
+          versements.add(
+                  new VersementParentParMois(resultSet.getLong(1),
+                          new Montant(resultSet.getBigDecimal(2)),
+                          resultSet.getDate(3).toLocalDate(), resultSet.getDate(4).toLocalDate()));
 
+        }
+        return versements;
       }
-      return versements;
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }
   }
 
-  public int findVersementsByAllocataireId(int allocataireId) {
+  public int countVersementsByAllocataireId(int allocataireId) {
     int count = -1;
     System.out.println("findVersementsByAllocataireId()");
     Connection connection = activeJDBCConnection();
-    try {
-      PreparedStatement preparedStatement = connection.prepareStatement(QUERY_COUNT_VERSEMENTS_BY_ALLOCATAIREID);
+    try (PreparedStatement preparedStatement = connection.prepareStatement(QUERY_COUNT_VERSEMENTS_BY_ALLOCATAIREID)) {
       preparedStatement.setLong(1, allocataireId);
-      ResultSet rs = preparedStatement.executeQuery();
-      if (rs.next()) {
-        count = rs.getInt(1);
+      try (ResultSet rs = preparedStatement.executeQuery()) {
+        if (rs.next()) {
+          count = rs.getInt(1);
+        }
       }
     } catch (SQLException e) {
       throw new RuntimeException(e);

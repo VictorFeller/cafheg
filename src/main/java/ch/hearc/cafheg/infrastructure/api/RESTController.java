@@ -1,6 +1,6 @@
 package ch.hearc.cafheg.infrastructure.api;
 
-import static ch.hearc.cafheg.infrastructure.persistance.Database.inTransaction;
+import static ch.hearc.cafheg.infrastructure.persistance.Database.inSupplierTransaction;
 
 import ch.hearc.cafheg.business.allocations.Allocataire;
 import ch.hearc.cafheg.business.allocations.AllocataireService;
@@ -52,7 +52,7 @@ public class RESTController {
    */
   @PostMapping("/droits/quel-parent")
   public String getParentDroitAllocation(@RequestBody DroitAllocationDTO droitAllocationDTO) {
-    return inTransaction(() -> {
+    return inSupplierTransaction(() -> {
       try {
         return allocationService.getParentDroitAllocation(droitAllocationDTO);
       } catch (Exception e) {
@@ -64,38 +64,38 @@ public class RESTController {
   @GetMapping("/allocataires")
   public List<Allocataire> allocataires(
       @RequestParam(value = "startsWith", required = false) String start) {
-    return inTransaction(() -> allocationService.findAllAllocataires(start));
+    return inSupplierTransaction(() -> allocationService.findAllAllocataires(start));
   }
 
   @GetMapping("/allocations")
   public List<Allocation> allocations() {
-    return inTransaction(allocationService::findAllocationsActuelles);
+    return inSupplierTransaction(allocationService::findAllocationsActuelles);
   }
 
   @GetMapping("/allocations/{year}/somme")
   public BigDecimal sommeAs(@PathVariable("year") int year) {
-    return inTransaction(() -> versementService.findSommeAllocationParAnnee(year).getValue());
+    return inSupplierTransaction(() -> versementService.findSommeAllocationParAnnee(year).getValue());
   }
 
   @GetMapping("/allocations-naissances/{year}/somme")
   public BigDecimal sommeAns(@PathVariable("year") int year) {
-    return inTransaction(
+    return inSupplierTransaction(
         () -> versementService.findSommeAllocationNaissanceParAnnee(year).getValue());
   }
 
   @GetMapping(value = "/allocataires/{allocataireId}/allocations", produces = MediaType.APPLICATION_PDF_VALUE)
   public byte[] pdfAllocations(@PathVariable("allocataireId") int allocataireId) {
-    return inTransaction(() -> versementService.exportPDFAllocataire(allocataireId));
+    return inSupplierTransaction(() -> versementService.exportPDFAllocataire(allocataireId));
   }
 
   @GetMapping(value = "/allocataires/{allocataireId}/versements", produces = MediaType.APPLICATION_PDF_VALUE)
   public byte[] pdfVersements(@PathVariable("allocataireId") int allocataireId) {
-    return inTransaction(() -> versementService.exportPDFVersements(allocataireId));
+    return inSupplierTransaction(() -> versementService.exportPDFVersements(allocataireId));
   }
 
   @DeleteMapping("/allocataire")
   public String deleteById(@RequestParam int allocataireId) {
-    return inTransaction(() -> allocataireService.deleteById(allocataireId));
+    return inSupplierTransaction(() -> allocataireService.deleteById(allocataireId));
   }
 
 }

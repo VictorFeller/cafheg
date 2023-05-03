@@ -22,34 +22,46 @@ public class AllocataireMapper extends Mapper {
     this.versementMapper = versementMapper;
   }
 
-  public List<Allocataire> findAll(String likeNom) {
-    System.out.println("findAll() " + likeNom);
+  public List<Allocataire> findAll() {
+    System.out.println("findAll()");
     Connection connection = activeJDBCConnection();
-    try {
-      PreparedStatement preparedStatement;
-      if (likeNom == null) {
-        System.out.println("SQL: " + QUERY_FIND_ALL);
-        preparedStatement = connection
-            .prepareStatement(QUERY_FIND_ALL);
-      } else {
-
-        System.out.println("SQL: " + QUERY_FIND_WHERE_NOM_LIKE);
-        preparedStatement = connection
-            .prepareStatement(QUERY_FIND_WHERE_NOM_LIKE);
-        preparedStatement.setString(1, likeNom + "%");
-      }
+    try (PreparedStatement preparedStatement = connection.prepareStatement(QUERY_FIND_ALL)) {
+      System.out.println("SQL: " + QUERY_FIND_ALL);
       System.out.println("Allocation d'un nouveau tableau");
       List<Allocataire> allocataires = new ArrayList<>();
-
       System.out.println("Exécution de la requête");
       try (ResultSet resultSet = preparedStatement.executeQuery()) {
-
         System.out.println("Allocataire mapping");
         while (resultSet.next()) {
           System.out.println("ResultSet#next");
           allocataires
-              .add(new Allocataire(new NoAVS(resultSet.getString(3)), resultSet.getString(2),
-                  resultSet.getString(1), null, null, null, null, null, null));
+                  .add(new Allocataire(new NoAVS(resultSet.getString(3)), resultSet.getString(2),
+                          resultSet.getString(1), null, null, null, null, null, null));
+        }
+      }
+      System.out.println("Allocataires trouvés " + allocataires.size());
+      return allocataires;
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  public List<Allocataire> findAllWhereNomLike(String likeNom) {
+    System.out.println("findAllWhereNomLike() " + likeNom);
+    Connection connection = activeJDBCConnection();
+    try (PreparedStatement preparedStatement = connection.prepareStatement(QUERY_FIND_WHERE_NOM_LIKE)) {
+      System.out.println("SQL: " + QUERY_FIND_WHERE_NOM_LIKE);
+      preparedStatement.setString(1, likeNom + "%");
+      System.out.println("Allocation d'un nouveau tableau");
+      List<Allocataire> allocataires = new ArrayList<>();
+      System.out.println("Exécution de la requête");
+      try (ResultSet resultSet = preparedStatement.executeQuery()) {
+        System.out.println("Allocataire mapping");
+        while (resultSet.next()) {
+          System.out.println("ResultSet#next");
+          allocataires
+                  .add(new Allocataire(new NoAVS(resultSet.getString(3)), resultSet.getString(2),
+                          resultSet.getString(1), null, null, null, null, null, null));
         }
       }
       System.out.println("Allocataires trouvés " + allocataires.size());
@@ -62,16 +74,16 @@ public class AllocataireMapper extends Mapper {
   public Allocataire findById(long id) {
     System.out.println("findById() " + id);
     Connection connection = activeJDBCConnection();
-    try {
+    try (PreparedStatement preparedStatement = connection.prepareStatement(QUERY_FIND_WHERE_NUMERO)) {
       System.out.println("SQL:" + QUERY_FIND_WHERE_NUMERO);
-      PreparedStatement preparedStatement = connection.prepareStatement(QUERY_FIND_WHERE_NUMERO);
       preparedStatement.setLong(1, id);
-      ResultSet resultSet = preparedStatement.executeQuery();
-      System.out.println("ResultSet#next");
-      resultSet.next();
-      System.out.println("Allocataire mapping");
-      return new Allocataire(new NoAVS(resultSet.getString(1)),
-          resultSet.getString(2), resultSet.getString(3), null, null, null, null, null, null);
+      try (ResultSet resultSet = preparedStatement.executeQuery()) {
+        System.out.println("ResultSet#next");
+        resultSet.next();
+        System.out.println("Allocataire mapping");
+        return new Allocataire(new NoAVS(resultSet.getString(1)),
+                resultSet.getString(2), resultSet.getString(3), null, null, null, null, null, null);
+      }
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }
@@ -81,10 +93,9 @@ public class AllocataireMapper extends Mapper {
     int deleted = -1;
     System.out.println("deleteById() " + id);
     Connection connection = activeJDBCConnection();
-    try {
-      if (versementMapper.findVersementsByAllocataireId(id) == 0) {
+    try (PreparedStatement preparedStatement = connection.prepareStatement(QUERY_DELETE_BY_NUMERO)) {
+      if (versementMapper.countVersementsByAllocataireId(id) == 0) {
         System.out.println("SQL:" + QUERY_DELETE_BY_NUMERO);
-        PreparedStatement preparedStatement = connection.prepareStatement(QUERY_DELETE_BY_NUMERO);
         preparedStatement.setInt(1, id);
         deleted = preparedStatement.executeUpdate();
       }
@@ -98,9 +109,6 @@ public class AllocataireMapper extends Mapper {
     }
   }
 
-  public void add(Allocataire allocataire){
-  }
-
   public void update(Allocataire allocataire) {
     System.out.println("update() " + allocataire.getNoAVS().getValue());
     Connection connection = activeJDBCConnection();
@@ -112,10 +120,6 @@ public class AllocataireMapper extends Mapper {
     } catch(SQLException e) {
       throw new RuntimeException(e);
     }
-  }
-
-  public Allocataire findByNoAVS(String noAVS){
-    return null;
   }
 
 }

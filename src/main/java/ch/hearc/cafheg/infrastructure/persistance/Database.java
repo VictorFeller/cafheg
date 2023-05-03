@@ -32,7 +32,7 @@ public class Database {
    * @param <T> Le type du retour de la fonction
    * @return Le résultat de l'éxécution de la fonction
    */
-  public static <T> T inTransaction(Supplier<T> inTransaction) {
+  public static <T> T inSupplierTransaction(Supplier<T> inTransaction) {
     System.out.println("inTransaction#start");
     try {
       System.out.println("inTransaction#getConnection");
@@ -52,7 +52,7 @@ public class Database {
     }
   }
 
-  public static void inTransaction(Runnable inTransaction) {
+  public static void inRunnableTransaction(Runnable inTransaction) {
     System.out.println("inTransaction#start");
     try {
       System.out.println("inTransaction#getConnection");
