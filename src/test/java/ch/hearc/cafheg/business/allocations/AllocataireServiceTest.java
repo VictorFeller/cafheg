@@ -1,95 +1,131 @@
 package ch.hearc.cafheg.business.allocations;
 
-import ch.hearc.cafheg.infrastructure.persistance.AllocataireMapper;
+import ch.hearc.cafheg.infrastructure.api.dto.AllocataireDTO;
+import ch.hearc.cafheg.infrastructure.api.dto.AllocataireDTOMapper;
+import ch.hearc.cafheg.infrastructure.persistance.*;
 
-import ch.hearc.cafheg.infrastructure.persistance.Database;
-import ch.hearc.cafheg.infrastructure.persistance.Migrations;
-import ch.hearc.cafheg.infrastructure.persistance.VersementMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 
+import static org.mockito.Mockito.times;
+
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.List;
 
 public class AllocataireServiceTest {
 
-    private Allocataire allocataire;
-    private VersementMapper versementMapper;
+    private AllocataireService allocataireService;
+    private AllocataireDTOMapper allocataireDTOMapper;
     private AllocataireMapper allocataireMapper;
+    private VersementMapper versementMapper;
 
     @BeforeEach
     void setUp() {
-        //Simuler data de prod
-        Database testDatabase = new Database();
-        Migrations testMigrations = new Migrations(testDatabase);
-        testDatabase.start();
-        testMigrations.start();
-        //Instenciation des mappers
-        versementMapper = new VersementMapper();
-        allocataireMapper = new AllocataireMapper(versementMapper);
+        allocataireMapper = Mockito.mock(AllocataireMapper.class);
+        allocataireDTOMapper = Mockito.mock(AllocataireDTOMapper.class);
+        versementMapper = Mockito.mock(VersementMapper.class);
+        allocataireService = new AllocataireService(allocataireMapper, allocataireDTOMapper);
     }
 
     @Test
-    void GetAllocataire() {
-        List<Allocataire> allAllocataires = Database.inSupplierTransaction(() -> allocataireMapper.findAll());
-        assertFalse(allAllocataires.isEmpty());
-    }
-
-
-    @Test
-    void testSuppression() {
-
-        //suppression allocataire2 OK
-        assertEquals("Allocataire supprimé", Database.inSupplierTransaction(() -> allocataireMapper.deleteById(21)));
-        // No data found
-        assertThrows(RuntimeException.class, () -> Database.inSupplierTransaction(() -> allocataireMapper.findById(21)));
-
-        //suppression allocataire NotOK
-        assertEquals("Pas possible de supprimer", Database.inSupplierTransaction(() -> allocataireMapper.deleteById(1)));
-        // Data found
-        assertDoesNotThrow(() -> Database.inSupplierTransaction(() ->allocataireMapper.findById(1)));
-
-        //Récupérer les data dans la DB
-        List<Allocataire> allAllocataires = Database.inSupplierTransaction(() -> allocataireMapper.findAll());
-        Allocataire allocNonSupp = Database.inSupplierTransaction(() -> allocataireMapper.findById(1));
-
-        //tester les suppressions effectives
-        assertThrows(RuntimeException.class, () -> Database.inSupplierTransaction(() -> allocataireMapper.findById(21)));
-        assertTrue(allAllocataires.stream().anyMatch(a -> a.getNoAVS().getValue() == allocNonSupp.getNoAVS().value));
-
+    void deleteAllocataire_GivenAllocataireWithVersements_ShouldBeFalse() {
+        String resultNOK = "Pas possible de supprimer";
+        Mockito.when(versementMapper.countVersementsByAllocataireId(1)).thenReturn(1);
+        assertEquals(allocataireService.deleteById(1),resultNOK);
+        Mockito.verify(allocataireMapper, times(0)).deleteById(1);
     }
 
     @Test
-    void testUpdateName() {
+    void deleteAllocataire_GivenAllocataireWithoutVersements_ShouldBeTrue() {
+        String resultOK = "Allocataire supprimé";
+        Mockito.when(versementMapper.countVersementsByAllocataireId(1)).thenReturn(0);
+        assertEquals(allocataireService.deleteById(1),resultOK);
+        Mockito.verify(allocataireMapper, times(1)).deleteById(1);
+    }
 
-        //Modifier nom/prénom
-        Allocataire allocataire = Database.inSupplierTransaction(() -> allocataireMapper.findById(1));
-        allocataire.setNom("Dujardin");
-        allocataire.setPrenom("Jean");
-        Database.inRunnableTransaction(() -> allocataireMapper.update(allocataire));
+    @Test
+    void updateAllocataire_GivenNewAVS_ShouldReturnOldData(){
+        NoAVS noAVS = new NoAVS("756.1234.5674.42");
+        NoAVS updatedNoAVS = new NoAVS("756.1234.5674.42"); // Remplacez ceci par une instance réelle de la classe NoAVS si nécessaire
+        String nom = "Dupont";
+        String prenom = "Pierre";
+        String residence = "Lausanne";
+        boolean activiteLucrative = true;
+        boolean autoriteParentale = true;
+        String workplace = "XYZ Company";
+        String worktype = "Ingénieur";
+        Integer salaire = 80000;
 
-        //Tester si modifier en DB
-        Allocataire updatedAllocataire = Database.inSupplierTransaction(() -> allocataireMapper.findById(1));
-        assertEquals("Jean", updatedAllocataire.getPrenom());
-        assertEquals("Dujardin", updatedAllocataire.getNom());
+        AllocataireDTO dtoAllocataire = new AllocataireDTO(noAVS, nom, prenom, residence, activiteLucrative, autoriteParentale, workplace, worktype, salaire);
+        Allocataire allocataire = new Allocataire(noAVS, nom, prenom, residence, activiteLucrative, autoriteParentale, workplace, worktype, salaire);
+
+        AllocataireDTO dtoUpdateAllocataire = new AllocataireDTO(updatedNoAVS, nom, prenom, residence, activiteLucrative, autoriteParentale, workplace, worktype, salaire);
+        Allocataire updateAllocataire = new Allocataire(updatedNoAVS, nom, prenom, residence, activiteLucrative, autoriteParentale, workplace, worktype, salaire);
+
+        Mockito.when(allocataireMapper.update(updateAllocataire)).thenReturn(updateAllocataire);
+        assertNotEquals(allocataireService.update(dtoUpdateAllocataire),dtoUpdateAllocataire);
+        assertEquals(allocataireService.update(dtoUpdateAllocataire),dtoAllocataire);
+        Mockito.verify(allocataireMapper, times(0)).update(allocataire);
+    }
+    @Test
+    void updateAllocataire_GivenNewNom_ShouldReturnUpdatedData(){
+        NoAVS noAVS = new NoAVS("756.1234.5678.97"); // Remplacez ceci par une instance réelle de la classe NoAVS si nécessaire
+        String nom = "Dupont";
+        String updatedNom = "Updated";
+        String prenom = "Pierre";
+        String residence = "Lausanne";
+        boolean activiteLucrative = true;
+        boolean autoriteParentale = true;
+        String workplace = "XYZ Company";
+        String worktype = "Ingénieur";
+        Integer salaire = 80000;
+
+
+        AllocataireDTO dtoUpdateAllocataire = new AllocataireDTO(noAVS, updatedNom, prenom, residence, activiteLucrative, autoriteParentale, workplace, worktype, salaire);
+        Allocataire updateAllocataire = new Allocataire(noAVS, updatedNom, prenom, residence, activiteLucrative, autoriteParentale, workplace, worktype, salaire);
+
+        AllocataireDTO dtoAllocataire = new AllocataireDTO(noAVS, nom, prenom, residence, activiteLucrative, autoriteParentale, workplace, worktype, salaire);
+        Allocataire allocataire = new Allocataire(noAVS, nom, prenom, residence, activiteLucrative, autoriteParentale, workplace, worktype, salaire);
+
+        Mockito.when(allocataireMapper.update(updateAllocataire)).thenReturn(updateAllocataire);
+        assertNotEquals(allocataireService.update(dtoUpdateAllocataire),dtoAllocataire);
+        assertEquals(allocataireService.update(dtoUpdateAllocataire),dtoUpdateAllocataire);
+        Mockito.verify(allocataireMapper, times(1)).update(updateAllocataire);
 
     }
 
-    /*@Test
-    void testUpdateAVS(){
+    void updateAllocataire_GivenNewPrenom_ShouldReturnUpdatedData(){
+        NoAVS noAVS = new NoAVS("756.1234.5678.97"); // Remplacez ceci par une instance réelle de la classe NoAVS si nécessaire
+        String nom = "Dupont";
+        String updatedPrenom = "Updated";
+        String prenom = "Pierre";
+        String residence = "Lausanne";
+        boolean activiteLucrative = true;
+        boolean autoriteParentale = true;
+        String workplace = "XYZ Company";
+        String worktype = "Ingénieur";
+        Integer salaire = 80000;
 
-        // récupérer allocataire dans la db
-        Allocataire allocataire = Database.inSupplierTransaction(() -> allocataireMapper.findById(1));
 
-        //Update AVS
-        NoAVS newNoAVS = new NoAVS("123.4567.8910");
-        allocataire.setNoAVS(newNoAVS);
+        AllocataireDTO dtoUpdateAllocataire = new AllocataireDTO(noAVS, nom, updatedPrenom, residence, activiteLucrative, autoriteParentale, workplace, worktype, salaire);
+        Allocataire updateAllocataire = new Allocataire(noAVS, nom, updatedPrenom, residence, activiteLucrative, autoriteParentale, workplace, worktype, salaire);
 
-        //Doit lever une exception, j'ai mis SQLException mais il faut définir comment on va gérer ça
-        assertThrows(SQLException.class, () -> Database.inRunnableTransaction(() -> allocataireMapper.update(allocataire)));
-        
-    }*/
+        AllocataireDTO dtoAllocataire = new AllocataireDTO(noAVS, nom, prenom, residence, activiteLucrative, autoriteParentale, workplace, worktype, salaire);
+        Allocataire allocataire = new Allocataire(noAVS, nom, prenom, residence, activiteLucrative, autoriteParentale, workplace, worktype, salaire);
+
+        Mockito.when(allocataireMapper.update(updateAllocataire)).thenReturn(updateAllocataire);
+        assertNotEquals(allocataireService.update(dtoUpdateAllocataire),dtoAllocataire);
+        assertEquals(allocataireService.update(dtoUpdateAllocataire),dtoUpdateAllocataire);
+        Mockito.verify(allocataireMapper, times(1)).update(updateAllocataire);
+
+    }
+
+
 
 }
