@@ -1,3 +1,4 @@
+//FIXME utiliser des log à la place des sout
 package ch.hearc.cafheg.infrastructure.persistance;
 
 import ch.hearc.cafheg.business.allocations.Allocataire;
@@ -15,6 +16,7 @@ public class AllocataireMapper extends Mapper {
   private static final String QUERY_FIND_ALL = "SELECT NOM,PRENOM,NO_AVS FROM ALLOCATAIRES";
   private static final String QUERY_FIND_WHERE_NOM_LIKE = "SELECT NOM,PRENOM,NO_AVS FROM ALLOCATAIRES WHERE NOM LIKE ?";
   private static final String QUERY_FIND_WHERE_NUMERO = "SELECT NO_AVS, NOM, PRENOM FROM ALLOCATAIRES WHERE NUMERO=?";
+  private static final String QUERY_FIND_WHERE_AVS = "SELECT NO_AVS, NOM, PRENOM FROM ALLOCATAIRES WHERE NO_AVS=?";
   private static final String QUERY_DELETE_BY_NUMERO = "DELETE FROM ALLOCATAIRES WHERE NUMERO = ?";
   private static final String QUERY_UPDATE_ALLOCATAIRE = "UPDATE ALLOCATAIRES SET NOM = ?, PRENOM = ? WHERE NO_AVS = ?";
 
@@ -71,6 +73,7 @@ public class AllocataireMapper extends Mapper {
     }
   }
 
+
   public Allocataire findById(long id) {
     System.out.println("findById() " + id);
     Connection connection = activeJDBCConnection();
@@ -81,6 +84,26 @@ public class AllocataireMapper extends Mapper {
         System.out.println("ResultSet#next");
         resultSet.next();
         System.out.println("Allocataire mapping");
+        //FIXME créer un constructeur avec moins de paramètres
+        return new Allocataire(new NoAVS(resultSet.getString(1)),
+                resultSet.getString(2), resultSet.getString(3), null, null, null, null, null, null);
+      }
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  public Allocataire findByAVS(NoAVS noAVS) {
+    System.out.println("findById() " + noAVS.getValue());
+    Connection connection = activeJDBCConnection();
+    try (PreparedStatement preparedStatement = connection.prepareStatement(QUERY_FIND_WHERE_AVS)) {
+      System.out.println("SQL:" + QUERY_FIND_WHERE_NUMERO);
+      preparedStatement.setString(1, noAVS.getValue());
+      try (ResultSet resultSet = preparedStatement.executeQuery()) {
+        System.out.println("ResultSet#next");
+        resultSet.next();
+        System.out.println("Allocataire mapping");
+        //FIXME créer un constructeur avec moins de paramètres
         return new Allocataire(new NoAVS(resultSet.getString(1)),
                 resultSet.getString(2), resultSet.getString(3), null, null, null, null, null, null);
       }
@@ -109,7 +132,7 @@ public class AllocataireMapper extends Mapper {
     }
   }
 
-  public void update(Allocataire allocataire) {
+  public Allocataire update(Allocataire allocataire) {
     System.out.println("update() " + allocataire.getNoAVS().getValue());
     Connection connection = activeJDBCConnection();
     try (PreparedStatement preparedStatement = connection.prepareStatement(QUERY_UPDATE_ALLOCATAIRE)) {
@@ -120,6 +143,7 @@ public class AllocataireMapper extends Mapper {
     } catch(SQLException e) {
       throw new RuntimeException(e);
     }
+    return this.findByAVS(allocataire.getNoAVS());
   }
 
 }

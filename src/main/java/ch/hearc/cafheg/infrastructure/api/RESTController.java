@@ -7,6 +7,8 @@ import ch.hearc.cafheg.business.allocations.AllocataireService;
 import ch.hearc.cafheg.business.allocations.Allocation;
 import ch.hearc.cafheg.business.allocations.AllocationService;
 import ch.hearc.cafheg.business.versements.VersementService;
+import ch.hearc.cafheg.infrastructure.api.dto.AllocataireDTO;
+import ch.hearc.cafheg.infrastructure.api.dto.AllocataireDTOMapper;
 import ch.hearc.cafheg.infrastructure.api.dto.DroitAllocationDTO;
 import ch.hearc.cafheg.infrastructure.pdf.PDFExporter;
 import ch.hearc.cafheg.infrastructure.persistance.AllocataireMapper;
@@ -27,12 +29,13 @@ public class RESTController {
   private final VersementMapper versementMapper = new VersementMapper();
   private final AllocationMapper allocationMapper = new AllocationMapper();
   private final AllocataireMapper allocataireMapper = new AllocataireMapper(versementMapper);
+  private final AllocataireDTOMapper allocataireDTOMapper = new AllocataireDTOMapper();
   private final AllocationService allocationService;
   private final VersementService versementService;
   private final AllocataireService allocataireService;
 
   public RESTController() {
-    this.allocataireService = new AllocataireService(allocataireMapper);
+    this.allocataireService = new AllocataireService(allocataireMapper, allocataireDTOMapper);
     this.allocationService = new AllocationService(allocataireMapper, allocationMapper);
     this.versementService = new VersementService(versementMapper, allocataireMapper, pdfExporter);
   }
@@ -98,4 +101,8 @@ public class RESTController {
     return inSupplierTransaction(() -> allocataireService.deleteById(allocataireId));
   }
 
+  @PutMapping("/allocataire")
+  public AllocataireDTO updateAllocataire(@RequestBody AllocataireDTO allocataireDTO){
+    return inSupplierTransaction(() -> allocataireService.update(allocataireDTO));
+  }
 }

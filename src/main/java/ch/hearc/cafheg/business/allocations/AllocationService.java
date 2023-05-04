@@ -27,7 +27,7 @@ public class AllocationService {
 
     public List<Allocataire> findAllAllocataires(String likeNom) {
         System.out.println("Rechercher tous les allocataires");
-        return allocataireMapper.findAllWhereNomLike(likeNom);
+        return allocataireMapper.findAll();
     }
 
     public List<Allocation> findAllocationsActuelles() {
