@@ -15,7 +15,9 @@ import ch.hearc.cafheg.infrastructure.persistance.AllocataireMapper;
 import ch.hearc.cafheg.infrastructure.persistance.AllocationMapper;
 import ch.hearc.cafheg.infrastructure.persistance.EnfantMapper;
 import ch.hearc.cafheg.infrastructure.persistance.VersementMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -35,7 +37,7 @@ public class RESTController {
   private final AllocataireService allocataireService;
 
   public RESTController() {
-    this.allocataireService = new AllocataireService(allocataireMapper, allocataireDTOMapper);
+    this.allocataireService = new AllocataireService(allocataireMapper, allocataireDTOMapper, versementMapper);
     this.allocationService = new AllocationService(allocataireMapper, allocationMapper);
     this.versementService = new VersementService(versementMapper, allocataireMapper, pdfExporter);
   }
@@ -67,7 +69,7 @@ public class RESTController {
   @GetMapping("/allocataires")
   public List<Allocataire> allocataires(
       @RequestParam(value = "startsWith", required = false) String start) {
-    return inSupplierTransaction(() -> allocationService.findAllAllocataires(start));
+    return inSupplierTransaction(() -> allocationService.findAllAllocataires());
   }
 
   @GetMapping("/allocations")
@@ -97,12 +99,20 @@ public class RESTController {
   }
 
   @DeleteMapping("/allocataire")
-  public String deleteById(@RequestParam int allocataireId) {
-    return inSupplierTransaction(() -> allocataireService.deleteById(allocataireId));
+  public ResponseEntity<String> deleteById(@RequestParam int allocataireId) {
+    try {
+      return ResponseEntity.status(HttpStatus.OK).body(inSupplierTransaction(() -> allocataireService.deleteById(allocataireId)));
+    } catch (Exception e) {
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
   }
 
   @PutMapping("/allocataire")
-  public AllocataireDTO updateAllocataire(@RequestBody AllocataireDTO allocataireDTO){
-    return inSupplierTransaction(() -> allocataireService.update(allocataireDTO));
+  public ResponseEntity updateAllocataire(@RequestBody AllocataireDTO allocataireDTO){
+    try {
+      return ResponseEntity.status(HttpStatus.OK).body(inSupplierTransaction(() -> allocataireService.update(allocataireDTO)));
+    } catch (Exception e) {
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
   }
 }

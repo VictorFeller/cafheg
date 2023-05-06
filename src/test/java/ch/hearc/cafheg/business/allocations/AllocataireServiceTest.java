@@ -30,7 +30,7 @@ public class AllocataireServiceTest {
         allocataireMapper = Mockito.mock(AllocataireMapper.class);
         allocataireDTOMapper = Mockito.mock(AllocataireDTOMapper.class);
         versementMapper = Mockito.mock(VersementMapper.class);
-        allocataireService = new AllocataireService(allocataireMapper, allocataireDTOMapper);
+        allocataireService = new AllocataireService(allocataireMapper, allocataireDTOMapper, versementMapper);
     }
 
     @Test
@@ -69,6 +69,8 @@ public class AllocataireServiceTest {
         Allocataire updateAllocataire = new Allocataire(updatedNoAVS, nom, prenom, residence, activiteLucrative, autoriteParentale, workplace, worktype, salaire);
 
         Mockito.when(allocataireMapper.update(updateAllocataire)).thenReturn(updateAllocataire);
+        Mockito.when(allocataireMapper.update(allocataire)).thenReturn(updateAllocataire);
+
         assertNotEquals(allocataireService.update(dtoUpdateAllocataire),dtoUpdateAllocataire);
         assertEquals(allocataireService.update(dtoUpdateAllocataire),dtoAllocataire);
         Mockito.verify(allocataireMapper, times(0)).update(allocataire);
@@ -100,6 +102,7 @@ public class AllocataireServiceTest {
 
     }
 
+    @Test
     void updateAllocataire_GivenNewPrenom_ShouldReturnUpdatedData(){
         NoAVS noAVS = new NoAVS("756.1234.5678.97"); // Remplacez ceci par une instance réelle de la classe NoAVS si nécessaire
         String nom = "Dupont";
@@ -125,7 +128,4 @@ public class AllocataireServiceTest {
         Mockito.verify(allocataireMapper, times(1)).update(updateAllocataire);
 
     }
-
-
-
 }

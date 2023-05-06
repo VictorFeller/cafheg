@@ -112,33 +112,32 @@ public class AllocataireMapper extends Mapper {
     }
   }
 
-  public String deleteById(int id) {
-    int deleted = -1;
+  public void deleteById(int id) {
     System.out.println("deleteById() " + id);
     Connection connection = activeJDBCConnection();
     try (PreparedStatement preparedStatement = connection.prepareStatement(QUERY_DELETE_BY_NUMERO)) {
-      if (versementMapper.countVersementsByAllocataireId(id) == 0) {
         System.out.println("SQL:" + QUERY_DELETE_BY_NUMERO);
         preparedStatement.setInt(1, id);
-        deleted = preparedStatement.executeUpdate();
-      }
+        int rowReturned = preparedStatement.executeUpdate();
+        if(rowReturned != 1)
+          throw new RuntimeException("Aucune ligne à supprimer");
     } catch (SQLException e) {
       throw new RuntimeException(e);
-    }
-    if (deleted > 0) {
-      return "Allocataire supprimé";
-    } else {
-      return "Pas possible de supprimer";
     }
   }
 
   public Allocataire update(Allocataire allocataire) {
-    System.out.println("update() " + allocataire.getNoAVS().getValue());
+    System.out.println("update() " + (allocataire.getNoAVS() != null ? allocataire.getNoAVS().getValue() : "null"));
     Connection connection = activeJDBCConnection();
     try (PreparedStatement preparedStatement = connection.prepareStatement(QUERY_UPDATE_ALLOCATAIRE)) {
-      preparedStatement.setString(1, allocataire.getNom());
-      preparedStatement.setString(2, allocataire.getPrenom());
-      preparedStatement.setString(3, allocataire.getNoAVS().value);
+      if(allocataire.getNom() != null)
+        preparedStatement.setString(1, allocataire.getNom());
+      if(allocataire.getPrenom() != null)
+        preparedStatement.setString(2, allocataire.getPrenom());
+      if(allocataire.getNoAVS() != null)
+        preparedStatement.setString(3, allocataire.getNoAVS().value);
+      else
+        throw new RuntimeException("No AVS obligatoire");
       preparedStatement.executeUpdate();
     } catch(SQLException e) {
       throw new RuntimeException(e);
