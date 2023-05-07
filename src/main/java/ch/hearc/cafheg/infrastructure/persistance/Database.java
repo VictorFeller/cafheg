@@ -37,7 +37,9 @@ public class Database {
     try {
       System.out.println("inTransaction#getConnection");
       connection.set(dataSource.getConnection());
-      return inTransaction.get();
+      T result = inTransaction.get();
+      activeJDBCConnection().commit();
+      return result;
     } catch (Exception e) {
       throw new RuntimeException(e);
     } finally {

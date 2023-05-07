@@ -130,14 +130,9 @@ public class AllocataireMapper extends Mapper {
     System.out.println("update() " + (allocataire.getNoAVS() != null ? allocataire.getNoAVS().getValue() : "null"));
     Connection connection = activeJDBCConnection();
     try (PreparedStatement preparedStatement = connection.prepareStatement(QUERY_UPDATE_ALLOCATAIRE)) {
-      if(allocataire.getNom() != null)
         preparedStatement.setString(1, allocataire.getNom());
-      if(allocataire.getPrenom() != null)
         preparedStatement.setString(2, allocataire.getPrenom());
-      if(allocataire.getNoAVS() != null)
         preparedStatement.setString(3, allocataire.getNoAVS().value);
-      else
-        throw new RuntimeException("No AVS obligatoire");
       preparedStatement.executeUpdate();
     } catch(SQLException e) {
       throw new RuntimeException(e);

@@ -1,19 +1,22 @@
 package ch.hearc.cafheg.business.allocations;
 
 import ch.hearc.cafheg.infrastructure.api.dto.AllocataireDTO;
-import ch.hearc.cafheg.infrastructure.api.dto.AllocataireDTOMapper;
+import ch.hearc.cafheg.infrastructure.api.dto.AllocataireDTOToAllocataire;
+import ch.hearc.cafheg.infrastructure.api.dto.AllocataireToAllocataireDTO;
 import ch.hearc.cafheg.infrastructure.persistance.AllocataireMapper;
 import ch.hearc.cafheg.infrastructure.persistance.VersementMapper;
 
 public class AllocataireService {
 
     private final AllocataireMapper allocataireMapper;
-    private final AllocataireDTOMapper allocataireDTOMapper;
+    private AllocataireToAllocataireDTO allocataireToAllocataireDTO;
+    private AllocataireDTOToAllocataire allocataireDTOToAllocataire;
     private final VersementMapper versementMapper;
 
-    public AllocataireService(AllocataireMapper allocataireMapper, AllocataireDTOMapper allocataireDTOMapper, VersementMapper versementMapper) {
+    public AllocataireService(AllocataireMapper allocataireMapper, AllocataireToAllocataireDTO allocataireToAllocataireDTO, AllocataireDTOToAllocataire allocataireDTOToAllocataire, VersementMapper versementMapper) {
         this.allocataireMapper = allocataireMapper;
-        this.allocataireDTOMapper = allocataireDTOMapper;
+        this.allocataireToAllocataireDTO = allocataireToAllocataireDTO;
+        this.allocataireDTOToAllocataire = allocataireDTOToAllocataire;
         this.versementMapper = versementMapper;
     }
 
@@ -26,16 +29,17 @@ public class AllocataireService {
     }
 
     public AllocataireDTO update(AllocataireDTO allocataireDTO) {
-        Allocataire allocataire = new Allocataire(allocataireDTO.getNoAVS(),
-                allocataireDTO.getNom(),
-                allocataireDTO.getPrenom(),
-                allocataireDTO.getResidence(),
-                null,
-                null,
-                allocataireDTO.getWorkplace(),
-                allocataireDTO.getWorktype(),
-                allocataireDTO.getSalaire());
-        //Utilise le DTOMapper pour convertir en dto
-        return allocataireDTOMapper.apply(allocataireMapper.update(allocataire));
+        if(allocataireDTO.getNoAVS() == null)
+            throw new RuntimeException("No AVS obligatoire");
+
+        Allocataire al = allocataireMapper.findByAVS(allocataireDTO.getNoAVS());
+
+        if(al.getNom().equals(allocataireDTO.getNom()) && al.getPrenom().equals(allocataireDTO.getPrenom())){
+            //Même nom, prénom pas d'update
+            throw new RuntimeException("Aucun changement de nom ni prénom");
+        }
+
+        al = allocataireMapper.update(allocataireDTOToAllocataire.apply(allocataireDTO));
+        return allocataireToAllocataireDTO.apply(al);
     }
 }

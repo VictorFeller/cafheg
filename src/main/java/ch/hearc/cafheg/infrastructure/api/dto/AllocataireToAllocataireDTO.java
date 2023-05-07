@@ -7,7 +7,7 @@ import java.util.function.Function;
 
 
 @Service
-public class AllocataireDTOMapper implements Function<Allocataire, AllocataireDTO> {
+public class AllocataireToAllocataireDTO implements Function<Allocataire, AllocataireDTO> {
 @Override
     public AllocataireDTO apply(Allocataire allocataire){
         return new AllocataireDTO(allocataire.getNoAVS(), allocataire.getNom(), allocataire.getPrenom(), allocataire.getResidence(), allocataire.isActiviteLucrative(), allocataire.isAutoriteParentale(),

@@ -8,7 +8,8 @@ import ch.hearc.cafheg.business.allocations.Allocation;
 import ch.hearc.cafheg.business.allocations.AllocationService;
 import ch.hearc.cafheg.business.versements.VersementService;
 import ch.hearc.cafheg.infrastructure.api.dto.AllocataireDTO;
-import ch.hearc.cafheg.infrastructure.api.dto.AllocataireDTOMapper;
+import ch.hearc.cafheg.infrastructure.api.dto.AllocataireDTOToAllocataire;
+import ch.hearc.cafheg.infrastructure.api.dto.AllocataireToAllocataireDTO;
 import ch.hearc.cafheg.infrastructure.api.dto.DroitAllocationDTO;
 import ch.hearc.cafheg.infrastructure.pdf.PDFExporter;
 import ch.hearc.cafheg.infrastructure.persistance.AllocataireMapper;
@@ -31,13 +32,14 @@ public class RESTController {
   private final VersementMapper versementMapper = new VersementMapper();
   private final AllocationMapper allocationMapper = new AllocationMapper();
   private final AllocataireMapper allocataireMapper = new AllocataireMapper(versementMapper);
-  private final AllocataireDTOMapper allocataireDTOMapper = new AllocataireDTOMapper();
+  private final AllocataireToAllocataireDTO allocataireToAllocataireDTO = new AllocataireToAllocataireDTO();
+  private final AllocataireDTOToAllocataire allocataireDTOToAllocataire = new AllocataireDTOToAllocataire();
   private final AllocationService allocationService;
   private final VersementService versementService;
   private final AllocataireService allocataireService;
 
   public RESTController() {
-    this.allocataireService = new AllocataireService(allocataireMapper, allocataireDTOMapper, versementMapper);
+    this.allocataireService = new AllocataireService(allocataireMapper, allocataireToAllocataireDTO, allocataireDTOToAllocataire, versementMapper);
     this.allocationService = new AllocationService(allocataireMapper, allocationMapper);
     this.versementService = new VersementService(versementMapper, allocataireMapper, pdfExporter);
   }
