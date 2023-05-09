@@ -172,7 +172,7 @@
                 <configuration>
                     <url>http://localhost:8085/manager/text</url>
                     <server>TomcatServer</server>
-                    <path>/cafheg</path>
+                    <path>/cafhegDev</path>
                 </configuration>
             </plugin>
         </plugins>
