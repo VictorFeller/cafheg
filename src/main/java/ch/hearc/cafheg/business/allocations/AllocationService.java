@@ -1,4 +1,3 @@
-//TODO utiliser NE au lien de Neuchâtel
 //TODO clean code
 package ch.hearc.cafheg.business.allocations;
 
