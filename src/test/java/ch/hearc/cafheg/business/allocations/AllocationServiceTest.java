@@ -36,14 +36,14 @@ class AllocationServiceTest {
 
   @Test
   void findAllAllocataires_GivenEmptyAllocataires_ShouldBeEmpty() {
-    Mockito.when(allocataireMapper.findAll("Geiser")).thenReturn(Collections.emptyList());
+    Mockito.when(allocataireMapper.findAllWhereNomLike("Geiser")).thenReturn(Collections.emptyList());
     List<Allocataire> all = allocationService.findAllAllocataires("Geiser");
     assertThat(all).isEmpty();
   }
 
   @Test
   void findAllAllocataires_Given2Geiser_ShouldBe2() {
-    Mockito.when(allocataireMapper.findAll("Geiser"))
+    Mockito.when(allocataireMapper.findAllWhereNomLike("Geiser"))
         .thenReturn(Arrays.asList(
                 new Allocataire(new NoAVS("1000-2000"), "Geiser", "Arnaud", null, null, null, null, null, null),
                 new Allocataire(new NoAVS("1000-2001"), "Geiser", "Aurélie", null, null, null, null, null, null))

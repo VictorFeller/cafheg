@@ -32,12 +32,35 @@ public class Database {
    * @param <T> Le type du retour de la fonction
    * @return Le résultat de l'éxécution de la fonction
    */
-  public static <T> T inTransaction(Supplier<T> inTransaction) {
+  public static <T> T inSupplierTransaction(Supplier<T> inTransaction) {
     System.out.println("inTransaction#start");
     try {
       System.out.println("inTransaction#getConnection");
       connection.set(dataSource.getConnection());
-      return inTransaction.get();
+      T result = inTransaction.get();
+      activeJDBCConnection().commit();
+      return result;
+    } catch (Exception e) {
+      throw new RuntimeException(e);
+    } finally {
+      try {
+        System.out.println("inTransaction#closeConnection");
+        connection.get().close();
+      } catch (SQLException e) {
+        throw new RuntimeException(e);
+      }
+      System.out.println("inTransaction#end");
+      connection.remove();
+    }
+  }
+
+  public static void inRunnableTransaction(Runnable inTransaction) {
+    System.out.println("inTransaction#start");
+    try {
+      System.out.println("inTransaction#getConnection");
+      connection.set(dataSource.getConnection());
+      inTransaction.run();
+      activeJDBCConnection().commit();
     } catch (Exception e) {
       throw new RuntimeException(e);
     } finally {

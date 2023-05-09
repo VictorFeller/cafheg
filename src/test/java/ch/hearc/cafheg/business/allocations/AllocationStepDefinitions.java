@@ -4,6 +4,7 @@ package ch.hearc.cafheg.business.allocations;
 import ch.hearc.cafheg.infrastructure.api.dto.DroitAllocationDTO;
 import ch.hearc.cafheg.infrastructure.persistance.AllocataireMapper;
 import ch.hearc.cafheg.infrastructure.persistance.AllocationMapper;
+import ch.hearc.cafheg.infrastructure.persistance.VersementMapper;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -20,7 +21,8 @@ import static org.mockito.Mockito.when;
 
 public class AllocationStepDefinitions {
 
-    private final AllocataireMapper allocataireMapper = new AllocataireMapper();
+    private final VersementMapper versementMapper = new VersementMapper();
+    private final AllocataireMapper allocataireMapper = new AllocataireMapper(versementMapper);
     private final AllocationMapper allocationMapper = new AllocationMapper();
     private AllocationService allocationService = new AllocationService(allocataireMapper,allocationMapper);
     protected DroitAllocationDTO dto;
