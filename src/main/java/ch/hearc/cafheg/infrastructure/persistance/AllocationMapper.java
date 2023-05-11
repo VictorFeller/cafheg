@@ -3,6 +3,9 @@ package ch.hearc.cafheg.infrastructure.persistance;
 import ch.hearc.cafheg.business.allocations.Allocation;
 import ch.hearc.cafheg.business.allocations.Canton;
 import ch.hearc.cafheg.business.common.Montant;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,6 +17,7 @@ public class AllocationMapper extends Mapper {
 
   private static final String QUERY_FIND_ALL = "SELECT * FROM ALLOCATIONS";
 
+  private static final Logger logger = LoggerFactory.getLogger(AllocationMapper.class);
   public List<Allocation> findAll() {
     System.out.println("Recherche de toutes les allocations");
     Connection connection = activeJDBCConnection();

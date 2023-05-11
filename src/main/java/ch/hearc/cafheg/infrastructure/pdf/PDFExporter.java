@@ -12,10 +12,13 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class PDFExporter {
 
   private final EnfantMapper enfantMapper;
+  private static final Logger logger = LoggerFactory.getLogger(PDFExporter.class);
 
   public PDFExporter(EnfantMapper enfantMapper) {
     this.enfantMapper = enfantMapper;

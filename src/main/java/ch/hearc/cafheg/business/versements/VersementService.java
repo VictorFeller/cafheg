@@ -3,10 +3,14 @@ package ch.hearc.cafheg.business.versements;
 import static java.util.stream.Collectors.toMap;
 
 import ch.hearc.cafheg.business.allocations.Allocataire;
+import ch.hearc.cafheg.business.allocations.AllocationService;
 import ch.hearc.cafheg.business.common.Montant;
 import ch.hearc.cafheg.infrastructure.pdf.PDFExporter;
 import ch.hearc.cafheg.infrastructure.persistance.AllocataireMapper;
 import ch.hearc.cafheg.infrastructure.persistance.VersementMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +21,7 @@ public class VersementService {
   private final VersementMapper versementMapper;
   private final AllocataireMapper allocataireMapper;
   private final PDFExporter pdfExporter;
+  private static final Logger logger = LoggerFactory.getLogger(VersementService.class);
 
   public VersementService(
       VersementMapper versementMapper,

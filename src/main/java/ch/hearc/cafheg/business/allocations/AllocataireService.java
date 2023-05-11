@@ -5,6 +5,8 @@ import ch.hearc.cafheg.infrastructure.api.dto.AllocataireDTOToAllocataire;
 import ch.hearc.cafheg.infrastructure.api.dto.AllocataireToAllocataireDTO;
 import ch.hearc.cafheg.infrastructure.persistance.AllocataireMapper;
 import ch.hearc.cafheg.infrastructure.persistance.VersementMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class AllocataireService {
 
@@ -12,6 +14,7 @@ public class AllocataireService {
     private AllocataireToAllocataireDTO allocataireToAllocataireDTO;
     private AllocataireDTOToAllocataire allocataireDTOToAllocataire;
     private final VersementMapper versementMapper;
+    private static final Logger logger = LoggerFactory.getLogger(AllocataireService.class);
 
     public AllocataireService(AllocataireMapper allocataireMapper, AllocataireToAllocataireDTO allocataireToAllocataireDTO, AllocataireDTOToAllocataire allocataireDTOToAllocataire, VersementMapper versementMapper) {
         this.allocataireMapper = allocataireMapper;

@@ -2,6 +2,8 @@ package ch.hearc.cafheg.infrastructure.persistance;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.function.Supplier;
@@ -13,6 +15,7 @@ public class Database {
 
   /** Connection JDBC active par utilisateur/thread (ThreadLocal) */
   private static final ThreadLocal<Connection> connection = new ThreadLocal<>();
+  private static final Logger logger = LoggerFactory.getLogger(Database.class);
 
   /**
    * Retourne la transaction active ou throw une Exception si pas de transaction

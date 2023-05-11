@@ -3,6 +3,9 @@ package ch.hearc.cafheg.infrastructure.persistance;
 
 import ch.hearc.cafheg.business.allocations.Allocataire;
 import ch.hearc.cafheg.business.allocations.NoAVS;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,6 +22,8 @@ public class AllocataireMapper extends Mapper {
   private static final String QUERY_FIND_WHERE_AVS = "SELECT NO_AVS, NOM, PRENOM FROM ALLOCATAIRES WHERE NO_AVS=?";
   private static final String QUERY_DELETE_BY_NUMERO = "DELETE FROM ALLOCATAIRES WHERE NUMERO = ?";
   private static final String QUERY_UPDATE_ALLOCATAIRE = "UPDATE ALLOCATAIRES SET NOM = ?, PRENOM = ? WHERE NO_AVS = ?";
+
+  private static final Logger logger = LoggerFactory.getLogger(AllocataireMapper.class);
 
   public AllocataireMapper(VersementMapper versementMapper) {
     this.versementMapper = versementMapper;

@@ -2,6 +2,8 @@ package ch.hearc.cafheg.infrastructure.persistance;
 
 import ch.hearc.cafheg.business.versements.Enfant;
 import ch.hearc.cafheg.business.allocations.NoAVS;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,6 +13,7 @@ public class EnfantMapper extends Mapper {
 
   private final String QUERY_FIND_ENFANT_BY_ID = "SELECT NO_AVS, NOM, PRENOM FROM ENFANTS WHERE NUMERO=?";
 
+  private static final Logger logger = LoggerFactory.getLogger(EnfantMapper.class);
   public Enfant findById(long id) {
     System.out.println("Recherche d'un enfant par son id " + id);
     Connection connection = activeJDBCConnection();
