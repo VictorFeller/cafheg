@@ -26,7 +26,7 @@ public class PDFExporter {
 
   public byte[] generatePDFVversement(Allocataire allocataire,
       Map<LocalDate, Montant> montantParMois) {
-    System.out.println("Génération du PDF des versements");
+    logger.debug("Génération du PDF des versements");
     try {
       ByteArrayOutputStream baos = new ByteArrayOutputStream();
       PDDocument document = new PDDocument();
@@ -65,7 +65,7 @@ public class PDFExporter {
       document.save(baos);
       document.close();
 
-      System.out.println("PDF généré");
+      logger.debug("PDF généré");
       return baos.toByteArray();
 
 
@@ -77,7 +77,7 @@ public class PDFExporter {
 
   public byte[] generatePDFAllocataire(Allocataire allocataire,
       Map<Long, Montant> montantsParEnfant) {
-    System.out.println("Génération du PDF pour un allocataire");
+    logger.debug("Génération du PDF pour un allocataire");
 
     try {
       ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -120,7 +120,7 @@ public class PDFExporter {
       document.save(baos);
       document.close();
 
-      System.out.println("PDF généré");
+      logger.debug("PDF généré");
       return baos.toByteArray();
     } catch (
         IOException e) {
