@@ -8,7 +8,6 @@
     </appender>
 
     <appender name="rollingFileInfoAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>cafheg.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>cafheg_%d{yyyyMMdd}.log</fileNamePattern>
         </rollingPolicy>
