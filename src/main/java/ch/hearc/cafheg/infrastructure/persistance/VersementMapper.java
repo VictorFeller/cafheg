@@ -23,8 +23,9 @@ public class VersementMapper extends Mapper {
   private final String QUERY_COUNT_VERSEMENTS_BY_ALLOCATAIREID = "SELECT COUNT(NUMERO) FROM VERSEMENTS WHERE FK_ALLOCATAIRES = ?";
 
   private static final Logger logger = LoggerFactory.getLogger(VersementMapper.class);
+  //FIXME QUERY NOT WORKING java.lang.RuntimeException: org.h2.jdbc.JdbcSQLSyntaxErrorException: Colonne "AN.FK_VERSEMENTS" non trouvée
   public List<VersementAllocationNaissance> findAllVersementAllocationNaissance() {
-    System.out.println("findAllVersementAllocationNaissance()");
+    logger.debug("findAllVersementAllocationNaissance()");
     Connection connection = activeJDBCConnection();
     try (PreparedStatement preparedStatement = connection.prepareStatement(QUERY_FIND_ALL_ALLOCATIONS_NAISSANCE)) {
       try (ResultSet resultSet = preparedStatement.executeQuery()) {
