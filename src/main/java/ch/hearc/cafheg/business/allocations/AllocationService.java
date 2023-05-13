@@ -1,4 +1,3 @@
-//TODO clean code
 package ch.hearc.cafheg.business.allocations;
 
 import ch.hearc.cafheg.infrastructure.api.dto.DroitAllocationDTO;
@@ -28,12 +27,12 @@ public class AllocationService {
     }
 
     public List<Allocataire> findAllAllocataires(String likeNom) {
-        System.out.println("Rechercher tous les allocataires");
+        logger.info("Rechercher tous les allocataires");
         return allocataireMapper.findAllWhereNomLike(likeNom);
     }
 
     public List<Allocataire> findAllAllocataires() {
-        System.out.println("Rechercher tous les allocataires");
+        logger.info("Rechercher tous les allocataires");
         return allocataireMapper.findAll();
     }
 
@@ -42,13 +41,14 @@ public class AllocationService {
         return allocationMapper.findAll();
     }
 
-    public String getParentDroitAllocation(DroitAllocationDTO droitAllocationDTO) throws Exception {
+    public String getParentDroitAllocation(DroitAllocationDTO droitAllocationDTO) {
+        logger.info("Déterminer quel parent a le droit aux allocations");
         Allocataire allocataireParent1 = new Allocataire(
                 new NoAVS("756"),
                 "Dubois",
                 "Jeanne",
                 droitAllocationDTO.getParent1Residence().orElse(""),
-                droitAllocationDTO.getParent1ActiviteLucrative().orElseThrow(() -> new RuntimeException("Merci de renseigner...")), //TODO create AllocationServiceExcetion
+                droitAllocationDTO.getParent1ActiviteLucrative().orElseThrow(() -> new RuntimeException("Merci de renseigner...")),
                 droitAllocationDTO.getParent1AutoriteParentale().orElse(false),
                 droitAllocationDTO.getParent1WorkPlace().orElse(""),
                 droitAllocationDTO.getParent1WorkType().orElse(""),
@@ -60,7 +60,7 @@ public class AllocationService {
                 "Dubois",
                 "Marc",
                 droitAllocationDTO.getParent2Residence().orElse(""),
-                droitAllocationDTO.getParent2ActiviteLucrative().orElseThrow(() -> new Exception("Merci de renseigner...")), //TODO create AllocationServiceExcetion
+                droitAllocationDTO.getParent2ActiviteLucrative().orElseThrow(() -> new RuntimeException("Merci de renseigner...")),
                 droitAllocationDTO.getParent2AutoriteParentale().orElse(false),
                 droitAllocationDTO.getParent2WorkPlace().orElse(""),
                 droitAllocationDTO.getParent2WorkType().orElse(""),
@@ -68,15 +68,15 @@ public class AllocationService {
         );
 
 
-        System.out.println("Déterminer quel parent a le droit aux allocations");
         String eR = droitAllocationDTO.getEnfantResidence().orElse("");
         boolean pEnsemble = droitAllocationDTO.getParentsEnsemble().orElse(false);
 
 
 
         //Au moins un des deux parents a une activité lucrative
-        if(!allocataireParent1.isActiviteLucrative() && !allocataireParent2.isActiviteLucrative())
+        if(!allocataireParent1.isActiviteLucrative() && !allocataireParent2.isActiviteLucrative()) {
             throw new RuntimeException("Aucun parent n'exerce d'activité lucrative");
+        }
         //Seul le parent 1 a une activité lucrative
         if(allocataireParent1.isActiviteLucrative() && !allocataireParent2.isActiviteLucrative()){
             return PARENT_1;

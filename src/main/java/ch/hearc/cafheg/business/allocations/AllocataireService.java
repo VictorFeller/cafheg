@@ -24,6 +24,7 @@ public class AllocataireService {
     }
 
     public String deleteById(int allocataireId) {
+        logger.info("Suppression de l'allocataire id : " + allocataireId);
         if (versementMapper.countVersementsByAllocataireId(allocataireId) == 0) {
             allocataireMapper.deleteById(allocataireId);
             return "Allocataire supprimé";
@@ -32,6 +33,7 @@ public class AllocataireService {
     }
 
     public AllocataireDTO update(AllocataireDTO allocataireDTO) {
+        logger.info("Mise à jour de l'allocataire : " + allocataireDTO.getNoAVS());
         if(allocataireDTO.getNoAVS() == null)
             throw new RuntimeException("No AVS obligatoire");
 
