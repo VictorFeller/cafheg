@@ -30,7 +30,7 @@ public class VersementMapper extends Mapper {
       try (ResultSet resultSet = preparedStatement.executeQuery()) {
         List<VersementAllocationNaissance> versements = new ArrayList<>();
         while (resultSet.next()) {
-          System.out.println("resultSet#next");
+          logger.debug("resultSet#next");
           versements.add(
                   new VersementAllocationNaissance(new Montant(resultSet.getBigDecimal(2)),
                           resultSet.getDate(1).toLocalDate()));
@@ -44,13 +44,13 @@ public class VersementMapper extends Mapper {
   }
 
   public List<VersementAllocation> findAllVersementAllocation() {
-    System.out.println("findAllVersementAllocation()");
+    logger.debug("findAllVersementAllocation()");
     Connection connection = activeJDBCConnection();
     try (PreparedStatement preparedStatement = connection.prepareStatement(QUERY_FIND_ALL_VERSEMENTS)) {
       try (ResultSet resultSet = preparedStatement.executeQuery()) {
         List<VersementAllocation> versements = new ArrayList<>();
         while (resultSet.next()) {
-          System.out.println("resultSet#next");
+          logger.debug("resultSet#next");
           versements.add(
                   new VersementAllocation(new Montant(resultSet.getBigDecimal(2)),
                           resultSet.getDate(1).toLocalDate()));
@@ -64,12 +64,12 @@ public class VersementMapper extends Mapper {
   }
 
   public List<VersementParentEnfant> findVersementParentEnfant() {
-    System.out.println("findVersementParentEnfant()");
+    logger.debug("findVersementParentEnfant()");
     Connection connection = activeJDBCConnection();
     try (PreparedStatement preparedStatement = connection.prepareStatement(QUERY_FIND_ALL_VERSEMENTS_PARENTS_ENFANTS)) {
       try (ResultSet resultSet = preparedStatement.executeQuery()) {
         List<VersementParentEnfant> versements = new ArrayList<>();
-        System.out.println("resultSet#next");
+        logger.debug("resultSet#next");
         while (resultSet.next()) {
           versements.add(
                   new VersementParentEnfant(resultSet.getLong(1), resultSet.getLong(2),
@@ -84,13 +84,13 @@ public class VersementMapper extends Mapper {
   }
 
   public List<VersementParentParMois> findVersementParentEnfantParMois() {
-    System.out.println("findVersementParentEnfantParMois()");
+    logger.debug("findVersementParentEnfantParMois()");
     Connection connection = activeJDBCConnection();
     try (PreparedStatement preparedStatement = connection.prepareStatement(QUERY_FIND_ALL_VERSEMENTS_PARENTS_ENFANTS_PAR_MOIS)) {
       try (ResultSet resultSet = preparedStatement.executeQuery()) {
         List<VersementParentParMois> versements = new ArrayList<>();
         while (resultSet.next()) {
-          System.out.println("resultSet#next");
+          logger.debug("resultSet#next");
           versements.add(
                   new VersementParentParMois(resultSet.getLong(1),
                           new Montant(resultSet.getBigDecimal(2)),
@@ -106,7 +106,7 @@ public class VersementMapper extends Mapper {
 
   public int countVersementsByAllocataireId(int allocataireId) {
     int count = -1;
-    System.out.println("findVersementsByAllocataireId()");
+    logger.debug("findVersementsByAllocataireId()");
     Connection connection = activeJDBCConnection();
     try (PreparedStatement preparedStatement = connection.prepareStatement(QUERY_COUNT_VERSEMENTS_BY_ALLOCATAIREID)) {
       preparedStatement.setLong(1, allocataireId);
