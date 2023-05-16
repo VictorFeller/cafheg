@@ -58,14 +58,12 @@ public class RESTController {
   }
    */
   @PostMapping("/droits/quel-parent")
-  public String getParentDroitAllocation(@RequestBody DroitAllocationDTO droitAllocationDTO) {
-    return inSupplierTransaction(() -> {
-      try {
-        return allocationService.getParentDroitAllocation(droitAllocationDTO);
-      } catch (Exception e) {
-        throw new RuntimeException(e);
-      }
-    });
+  public ResponseEntity<String> getParentDroitAllocation(@RequestBody DroitAllocationDTO droitAllocationDTO) {
+    try {
+      return ResponseEntity.status(HttpStatus.OK).body(inSupplierTransaction(() -> allocationService.getParentDroitAllocation(droitAllocationDTO)));
+    } catch (Exception e) {
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
   }
 
   @GetMapping("/allocataires")
@@ -85,16 +83,28 @@ public class RESTController {
   }
 
   @GetMapping("/allocations-naissances/{year}/somme")
-  public BigDecimal sommeAns(@PathVariable("year") int year) {
-    return inSupplierTransaction(
-        () -> versementService.findSommeAllocationNaissanceParAnnee(year).getValue());
+  public ResponseEntity sommeAns(@PathVariable("year") int year) {
+    try{
+      return ResponseEntity.status(HttpStatus.OK).body(inSupplierTransaction(
+              () -> versementService.findSommeAllocationNaissanceParAnnee(year).getValue()));
+    }
+    catch (Exception e){
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
   }
 
+  //FIXME Exception pas bien remontée
   @GetMapping(value = "/allocataires/{allocataireId}/allocations", produces = MediaType.APPLICATION_PDF_VALUE)
-  public byte[] pdfAllocations(@PathVariable("allocataireId") int allocataireId) {
-    return inSupplierTransaction(() -> versementService.exportPDFAllocataire(allocataireId));
+  public ResponseEntity pdfAllocations(@PathVariable("allocataireId") int allocataireId) {
+    try{
+      return ResponseEntity.status(HttpStatus.OK).body(inSupplierTransaction(() -> versementService.exportPDFAllocataire(allocataireId)));
+    }
+    catch (Exception e){
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
   }
 
+  //FIXME Exception pas bien remontée
   @GetMapping(value = "/allocataires/{allocataireId}/versements", produces = MediaType.APPLICATION_PDF_VALUE)
   public byte[] pdfVersements(@PathVariable("allocataireId") int allocataireId) {
     return inSupplierTransaction(() -> versementService.exportPDFVersements(allocataireId));

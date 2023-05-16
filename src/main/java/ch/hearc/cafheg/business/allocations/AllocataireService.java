@@ -5,6 +5,8 @@ import ch.hearc.cafheg.infrastructure.api.dto.AllocataireDTOToAllocataire;
 import ch.hearc.cafheg.infrastructure.api.dto.AllocataireToAllocataireDTO;
 import ch.hearc.cafheg.infrastructure.persistance.AllocataireMapper;
 import ch.hearc.cafheg.infrastructure.persistance.VersementMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class AllocataireService {
 
@@ -12,6 +14,7 @@ public class AllocataireService {
     private AllocataireToAllocataireDTO allocataireToAllocataireDTO;
     private AllocataireDTOToAllocataire allocataireDTOToAllocataire;
     private final VersementMapper versementMapper;
+    private static final Logger logger = LoggerFactory.getLogger(AllocataireService.class);
 
     public AllocataireService(AllocataireMapper allocataireMapper, AllocataireToAllocataireDTO allocataireToAllocataireDTO, AllocataireDTOToAllocataire allocataireDTOToAllocataire, VersementMapper versementMapper) {
         this.allocataireMapper = allocataireMapper;
@@ -21,6 +24,7 @@ public class AllocataireService {
     }
 
     public String deleteById(int allocataireId) {
+        logger.info("Suppression de l'allocataire id : " + allocataireId);
         if (versementMapper.countVersementsByAllocataireId(allocataireId) == 0) {
             allocataireMapper.deleteById(allocataireId);
             return "Allocataire supprimé";
@@ -29,6 +33,7 @@ public class AllocataireService {
     }
 
     public AllocataireDTO update(AllocataireDTO allocataireDTO) {
+        logger.info("Mise à jour de l'allocataire : " + allocataireDTO.getNoAVS());
         if(allocataireDTO.getNoAVS() == null)
             throw new RuntimeException("No AVS obligatoire");
 
