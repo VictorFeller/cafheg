@@ -2,6 +2,8 @@ package ch.hearc.cafheg.infrastructure.persistance;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.function.Supplier;
@@ -13,6 +15,7 @@ public class Database {
 
   /** Connection JDBC active par utilisateur/thread (ThreadLocal) */
   private static final ThreadLocal<Connection> connection = new ThreadLocal<>();
+  private static final Logger logger = LoggerFactory.getLogger(Database.class);
 
   /**
    * Retourne la transaction active ou throw une Exception si pas de transaction
@@ -33,9 +36,9 @@ public class Database {
    * @return Le résultat de l'éxécution de la fonction
    */
   public static <T> T inSupplierTransaction(Supplier<T> inTransaction) {
-    System.out.println("inTransaction#start");
+    logger.debug("inTransaction#start");
     try {
-      System.out.println("inTransaction#getConnection");
+      logger.debug("inTransaction#getConnection");
       connection.set(dataSource.getConnection());
       T result = inTransaction.get();
       activeJDBCConnection().commit();
@@ -44,20 +47,20 @@ public class Database {
       throw new RuntimeException(e);
     } finally {
       try {
-        System.out.println("inTransaction#closeConnection");
+        logger.debug("inTransaction#closeConnection");
         connection.get().close();
       } catch (SQLException e) {
         throw new RuntimeException(e);
       }
-      System.out.println("inTransaction#end");
+      logger.debug("inTransaction#end");
       connection.remove();
     }
   }
 
   public static void inRunnableTransaction(Runnable inTransaction) {
-    System.out.println("inTransaction#start");
+    logger.debug("inTransaction#start");
     try {
-      System.out.println("inTransaction#getConnection");
+      logger.debug("inTransaction#getConnection");
       connection.set(dataSource.getConnection());
       inTransaction.run();
       activeJDBCConnection().commit();
@@ -65,12 +68,12 @@ public class Database {
       throw new RuntimeException(e);
     } finally {
       try {
-        System.out.println("inTransaction#closeConnection");
+        logger.debug("inTransaction#closeConnection");
         connection.get().close();
       } catch (SQLException e) {
         throw new RuntimeException(e);
       }
-      System.out.println("inTransaction#end");
+      logger.debug("inTransaction#end");
       connection.remove();
     }
   }
@@ -83,12 +86,12 @@ public class Database {
    * Initialisation du pool de connections.
    */
   public void start() {
-    System.out.println("Initializing datasource");
+    logger.debug("Initializing datasource");
     HikariConfig config = new HikariConfig();
     config.setJdbcUrl("jdbc:h2:mem:sample");
     config.setMaximumPoolSize(20);
     config.setDriverClassName("org.h2.Driver");
     dataSource = new HikariDataSource(config);
-    System.out.println("Datasource initialized");
+    logger.debug("Datasource initialized");
   }
 }
