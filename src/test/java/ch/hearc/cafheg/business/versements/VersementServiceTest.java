@@ -77,7 +77,7 @@ class VersementServiceTest {
             new VersementParentEnfant(1L, 11L, new Montant(new BigDecimal(1000))),
             new VersementParentEnfant(2L, 20L, new Montant(new BigDecimal(1000)))));
     Mockito.when(allocataireMapper.findById(1L))
-        .thenReturn(new Allocataire(new NoAVS("2000-1000"), "Geiser", "Arnaud"));
+        .thenReturn(new Allocataire(new NoAVS("2000-1000"), "Geiser", "Arnaud", null, null, null, null, null, null));
 
     Mockito.when(enfantMapper.findById(10L))
         .thenReturn(new Enfant(new NoAVS("2000-1111"), "Geiser", "Chloé"));
@@ -100,7 +100,7 @@ class VersementServiceTest {
                 LocalDate.of(2020, 1, 1), LocalDate.of(2020, 2, 1))));
 
     Mockito.when(allocataireMapper.findById(1L))
-        .thenReturn(new Allocataire(new NoAVS("2000-1000"), "Geiser", "Arnaud"));
+        .thenReturn(new Allocataire(new NoAVS("2000-1000"), "Geiser", "Arnaud", null, null, null, null, null, null));
 
     byte[] bytes = versementService.exportPDFVersements(1L);
 
