@@ -1,4 +1,3 @@
-//FIXME utiliser des log à la place des sout
 package ch.hearc.cafheg.infrastructure.persistance;
 
 import ch.hearc.cafheg.business.allocations.Allocataire;
