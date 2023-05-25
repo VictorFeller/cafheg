@@ -1,6 +1,8 @@
 package ch.hearc.cafheg.business.allocations;
 
 import ch.hearc.cafheg.infrastructure.api.dto.AllocataireDTO;
+import ch.hearc.cafheg.infrastructure.api.dto.AllocataireDTOToAllocataire;
+import ch.hearc.cafheg.infrastructure.api.dto.AllocataireToAllocataireDTO;
 import ch.hearc.cafheg.infrastructure.persistance.AllocataireMapper;
 import ch.hearc.cafheg.infrastructure.persistance.Database;
 import ch.hearc.cafheg.infrastructure.persistance.Migrations;
@@ -61,8 +63,9 @@ public class AllocataireServiceIT {
     void update_GivenAllocataireNameX_ShouldBeZ() {
         try {
             VersementMapper versementMapper = new VersementMapper();
-            AllocataireService allocataireService = new AllocataireService(new AllocataireMapper(versementMapper), null, null, versementMapper);
-            Database.inRunnableTransaction(() -> allocataireService.deleteById(1));
+            AllocataireDTO allocataireDTO = new AllocataireDTO(new NoAVS("756.1558.5343.91"), "DeguzmanUpdated", "Kendrick1", null, false, false, null, null, null);
+            AllocataireService allocataireService = new AllocataireService(new AllocataireMapper(versementMapper), new AllocataireToAllocataireDTO(), new AllocataireDTOToAllocataire(), versementMapper);
+            AllocataireDTO updateAllocataire = Database.inSupplierTransaction(() -> allocataireService.update(allocataireDTO));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
