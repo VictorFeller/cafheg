@@ -9,6 +9,7 @@ import ch.hearc.cafheg.infrastructure.persistance.Migrations;
 import ch.hearc.cafheg.infrastructure.persistance.VersementMapper;
 import org.dbunit.DatabaseUnitException;
 import org.dbunit.dataset.DataSetException;
+import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.operation.DatabaseOperation;
 import org.junit.jupiter.api.BeforeEach;
@@ -51,9 +52,19 @@ public class AllocataireServiceIT {
     @Test
     void delete_Given5Allocataires_ShouldHave4AllocatairesAfterRemoval() {
         try {
+            //Instanciation
             VersementMapper versementMapper = new VersementMapper();
             AllocataireService allocataireService = new AllocataireService(new AllocataireMapper(versementMapper), null, null, versementMapper);
+            //Récup état avant l'action DB
+            IDataSet databaseDataSet = connection.createDataSet();
+            int rowCount = databaseDataSet.getTable(ALLOCATAIRES).getRowCount(); // retourne le nombre de ligne
+            //Action DB
             Database.inRunnableTransaction(() -> allocataireService.deleteById(1));
+            //Récupération état post-action
+            IDataSet databaseDataSetPostAction = connection.createDataSet();
+            int rowCountPostAction = databaseDataSet.getTable(ALLOCATAIRES).getRowCount(); // retourne le nombre de ligne
+            //Assert
+            assertEquals(rowCount-1, rowCountPostAction);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -61,13 +72,31 @@ public class AllocataireServiceIT {
 
     @Test
     void update_GivenAllocataireNameX_ShouldBeZ() {
+
+
         try {
+            //Instanciation
             VersementMapper versementMapper = new VersementMapper();
-            AllocataireDTO allocataireDTO = new AllocataireDTO(new NoAVS("756.1558.5343.91"), "DeguzmanUpdated", "Kendrick1", null, false, false, null, null, null);
+            AllocataireDTO allocataireDTO = new AllocataireDTO(new NoAVS("756.1558.5343.91"), "UpdatedName", "Kendrick1", null, false, false, null, null, null);
             AllocataireService allocataireService = new AllocataireService(new AllocataireMapper(versementMapper), new AllocataireToAllocataireDTO(), new AllocataireDTOToAllocataire(), versementMapper);
+            //Action DB
             AllocataireDTO updateAllocataire = Database.inSupplierTransaction(() -> allocataireService.update(allocataireDTO));
+            //Récupération état post-action
+            IDataSet databaseDataSet = connection.createDataSet();
+            ITable table = databaseDataSet.getTable(ALLOCATAIRES); //récup table
+            String updatedName = null;
+            for (int i = 0; i < table.getRowCount(); i++) { // itérer sur les rows pour trouver celle avec le bon num_avs
+                if (table.getValue(i, "NO_AVS").equals("756.1558.5343.91")) {
+                    updatedName = (String) table.getValue(i, "nom");  // retrourner le nom trouver
+                    break;
+                }
+            }
+            //Assert
+            assertEquals("UpdatedName", updatedName);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+
+
     }
 }
