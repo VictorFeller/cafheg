@@ -1,6 +1,10 @@
 package ch.hearc.cafheg.business.allocations;
 
+import ch.hearc.cafheg.infrastructure.api.dto.AllocataireDTO;
+import ch.hearc.cafheg.infrastructure.persistance.AllocataireMapper;
 import ch.hearc.cafheg.infrastructure.persistance.Database;
+import ch.hearc.cafheg.infrastructure.persistance.Migrations;
+import ch.hearc.cafheg.infrastructure.persistance.VersementMapper;
 import org.dbunit.DatabaseUnitException;
 import org.dbunit.dataset.DataSetException;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
@@ -28,7 +32,9 @@ public class AllocataireServiceIT {
     @BeforeEach
     void setUp() {
         Database database = new Database();
+        Migrations migrations = new Migrations(database, true);
         database.start();
+        migrations.start();
         dataSource = database.dataSource();
         try {
             connection = new DatabaseConnection(dataSource.getConnection());
@@ -43,7 +49,20 @@ public class AllocataireServiceIT {
     @Test
     void delete_Given5Allocataires_ShouldHave4AllocatairesAfterRemoval() {
         try {
-            //DatabaseOperation.DELETE.execute(connection, dataset.getTable(ALLOCATAIRES).g);
+            VersementMapper versementMapper = new VersementMapper();
+            AllocataireService allocataireService = new AllocataireService(new AllocataireMapper(versementMapper), null, null, versementMapper);
+            Database.inRunnableTransaction(() -> allocataireService.deleteById(1));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Test
+    void update_GivenAllocataireNameX_ShouldBeZ() {
+        try {
+            VersementMapper versementMapper = new VersementMapper();
+            AllocataireService allocataireService = new AllocataireService(new AllocataireMapper(versementMapper), null, null, versementMapper);
+            Database.inRunnableTransaction(() -> allocataireService.deleteById(1));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
