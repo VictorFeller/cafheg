@@ -78,7 +78,7 @@ public class Database {
     }
   }
 
-  DataSource dataSource() {
+  public DataSource dataSource() {
     return dataSource;
   }
 
