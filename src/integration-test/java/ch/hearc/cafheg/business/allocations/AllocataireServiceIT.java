@@ -7,8 +7,6 @@ import ch.hearc.cafheg.infrastructure.persistance.AllocataireMapper;
 import ch.hearc.cafheg.infrastructure.persistance.Database;
 import ch.hearc.cafheg.infrastructure.persistance.Migrations;
 import ch.hearc.cafheg.infrastructure.persistance.VersementMapper;
-import org.dbunit.DatabaseUnitException;
-import org.dbunit.dataset.DataSetException;
 import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.operation.DatabaseOperation;
@@ -17,12 +15,7 @@ import org.junit.jupiter.api.Test;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.database.DatabaseConnection;
 import org.dbunit.dataset.IDataSet;
-
-
 import javax.sql.DataSource;
-
-import java.sql.SQLException;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class AllocataireServiceIT {
@@ -60,8 +53,7 @@ public class AllocataireServiceIT {
             int rowCount = databaseDataSet.getTable(ALLOCATAIRES).getRowCount(); // retourne le nombre de ligne
             //Action DB
             Database.inRunnableTransaction(() -> allocataireService.deleteById(1));
-            //Récupération état post-action
-            IDataSet databaseDataSetPostAction = connection.createDataSet();
+            //Récupération du nb de lignes post-action
             int rowCountPostAction = databaseDataSet.getTable(ALLOCATAIRES).getRowCount(); // retourne le nombre de ligne
             //Assert
             assertEquals(rowCount-1, rowCountPostAction);
@@ -72,8 +64,6 @@ public class AllocataireServiceIT {
 
     @Test
     void update_GivenAllocataireNameX_ShouldBeZ() {
-
-
         try {
             //Instanciation
             VersementMapper versementMapper = new VersementMapper();
@@ -96,7 +86,5 @@ public class AllocataireServiceIT {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
-
     }
 }
