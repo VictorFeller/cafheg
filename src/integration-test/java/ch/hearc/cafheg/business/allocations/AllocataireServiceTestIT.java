@@ -18,7 +18,7 @@ import org.dbunit.dataset.IDataSet;
 import javax.sql.DataSource;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class AllocataireServiceIT {
+public class AllocataireServiceTestIT {
 
     public static final String ALLOCATAIRES = "ALLOCATAIRES";
     DataSource dataSource;
