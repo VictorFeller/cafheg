@@ -18,6 +18,11 @@ public class Migrations {
     this.forTest = false;
   }
 
+  public Migrations(Database database, boolean forTest) {
+    this.database = database;
+    this.forTest = forTest;
+  }
+
   /**
    * Exécution des migrations
    */
