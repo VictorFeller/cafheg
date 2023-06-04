@@ -8,13 +8,10 @@ Réaliser un front-end pour l'application grâce à une technologie côté clien
 Mettre en place de la sécurité (Spring Security grâce au mécanisme de votre choix)
 Proposer d'autres services WEB dans l'application
 
-Application :
-Ajouter tous les cantons dans l'ENUM
-
 Persistance :
 Renommer les Mappers en DAO
 Potentiellement réaliser une classe DAOFactory
-Ajouter Connection aux paramètres des méthodes tapant dans la base de données
-Utiliser des fonctions pour l'appel des méthodes tapant dans la base de données
-Utiliser un try-with-ressource dans la méthode inTransaction
-Réaliser des injections de dépendances
+Utiliser des fonctions pour l'appel des méthodes tapant dans la base de données - Fait
+Utiliser un try-with-ressource dans la méthode inTransaction - Fait
+Réaliser des injections de dépendances - Fait
+Améliorer les conversions Allocataire <-> AllocataireDTO dans un package Utils - Fait dans la branche idees_ameliorations
