@@ -11,8 +11,8 @@ import org.slf4j.LoggerFactory;
 public class AllocataireService {
 
     private final AllocataireMapper allocataireMapper;
-    private AllocataireToAllocataireDTO allocataireToAllocataireDTO;
-    private AllocataireDTOToAllocataire allocataireDTOToAllocataire;
+    private final AllocataireToAllocataireDTO allocataireToAllocataireDTO;
+    private final AllocataireDTOToAllocataire allocataireDTOToAllocataire;
     private final VersementMapper versementMapper;
     private static final Logger logger = LoggerFactory.getLogger(AllocataireService.class);
 
@@ -34,8 +34,7 @@ public class AllocataireService {
 
     public AllocataireDTO update(AllocataireDTO allocataireDTO) {
         logger.info("Mise à jour de l'allocataire : " + allocataireDTO.getNoAVS());
-        if(allocataireDTO.getNoAVS() == null)
-            throw new RuntimeException("No AVS obligatoire");
+        // Pas de tests, pas de code de production
 
         Allocataire al = allocataireMapper.findByAVS(allocataireDTO.getNoAVS());
 

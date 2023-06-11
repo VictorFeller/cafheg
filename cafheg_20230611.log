@@ -1,0 +1,318 @@
+19:43:27.470 [main] INFO  c.h.c.b.versements.VersementService - Exporter les PDF pour l'allocataire:  1
+19:43:28.246 [main] INFO  c.h.c.b.versements.VersementService - Rechercher la somme des allocations  2019
+19:43:28.251 [main] INFO  c.h.c.b.versements.VersementService - Rechercher la somme des allocations de naissances pour l'année 2019
+19:43:28.255 [main] INFO  c.h.c.b.versements.VersementService - Exporter le PDF des versements pour l'allocataire 1
+19:43:28.265 [main] INFO  c.h.c.b.a.AllocataireService - Mise à jour de l'allocataire : ch.hearc.cafheg.business.allocations.NoAVS@6137cf6e
+19:43:28.273 [main] INFO  c.h.c.b.a.AllocataireService - Mise à jour de l'allocataire : ch.hearc.cafheg.business.allocations.NoAVS@6137cf6e
+19:43:28.276 [main] INFO  c.h.c.b.a.AllocataireService - Suppression de l'allocataire id : 1
+19:43:28.288 [main] INFO  c.h.c.b.a.AllocataireService - Mise à jour de l'allocataire : ch.hearc.cafheg.business.allocations.NoAVS@61a1ea2c
+19:43:28.291 [main] INFO  c.h.c.b.a.AllocataireService - Suppression de l'allocataire id : 1
+19:43:29.411 [main] INFO  c.h.c.b.a.AllocataireService - Suppression de l'allocataire id : 1
+19:43:29.439 [main] INFO  c.h.c.b.a.AllocataireService - Mise à jour de l'allocataire : ch.hearc.cafheg.business.allocations.NoAVS@35adf623
+19:43:29.459 [main] INFO  c.h.c.b.a.AllocationService - Rechercher tous les allocataires
+19:43:29.503 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:43:29.507 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:43:29.509 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:43:29.513 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:43:29.516 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:43:29.518 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:43:29.521 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:43:29.523 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:43:29.526 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:43:29.529 [main] INFO  c.h.c.b.a.AllocationService - Rechercher toutes les allocations
+19:43:29.535 [main] INFO  c.h.c.b.a.AllocationService - Rechercher tous les allocataires
+19:43:29.806 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:43:29.820 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:43:29.825 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:43:29.830 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:43:29.835 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:43:29.840 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:43:29.845 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:45:08.124 [main] INFO  c.h.c.b.versements.VersementService - Exporter les PDF pour l'allocataire:  1
+19:45:08.899 [main] INFO  c.h.c.b.versements.VersementService - Rechercher la somme des allocations  2019
+19:45:08.904 [main] INFO  c.h.c.b.versements.VersementService - Rechercher la somme des allocations de naissances pour l'année 2019
+19:45:08.908 [main] INFO  c.h.c.b.versements.VersementService - Exporter le PDF des versements pour l'allocataire 1
+19:45:08.919 [main] INFO  c.h.c.b.a.AllocataireService - Mise à jour de l'allocataire : ch.hearc.cafheg.business.allocations.NoAVS@77d680e6
+19:45:08.927 [main] INFO  c.h.c.b.a.AllocataireService - Mise à jour de l'allocataire : ch.hearc.cafheg.business.allocations.NoAVS@77d680e6
+19:45:08.931 [main] INFO  c.h.c.b.a.AllocataireService - Suppression de l'allocataire id : 1
+19:45:08.943 [main] INFO  c.h.c.b.a.AllocataireService - Mise à jour de l'allocataire : ch.hearc.cafheg.business.allocations.NoAVS@47a7a101
+19:45:08.946 [main] INFO  c.h.c.b.a.AllocataireService - Suppression de l'allocataire id : 1
+19:45:10.023 [main] INFO  c.h.c.b.a.AllocataireService - Suppression de l'allocataire id : 1
+19:45:10.059 [main] INFO  c.h.c.b.a.AllocataireService - Mise à jour de l'allocataire : ch.hearc.cafheg.business.allocations.NoAVS@1f736d00
+19:45:10.091 [main] INFO  c.h.c.b.a.AllocationService - Rechercher tous les allocataires
+19:45:10.137 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:45:10.142 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:45:10.146 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:45:10.150 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:45:10.154 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:45:10.157 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:45:10.160 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:45:10.163 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:45:10.165 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:45:10.169 [main] INFO  c.h.c.b.a.AllocationService - Rechercher toutes les allocations
+19:45:10.176 [main] INFO  c.h.c.b.a.AllocationService - Rechercher tous les allocataires
+19:45:10.434 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:45:10.446 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:45:10.451 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:45:10.456 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:45:10.461 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:45:10.466 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:45:10.471 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:46:00.168 [main] INFO  c.h.c.b.versements.VersementService - Exporter les PDF pour l'allocataire:  1
+19:46:00.975 [main] INFO  c.h.c.b.versements.VersementService - Rechercher la somme des allocations  2019
+19:46:00.981 [main] INFO  c.h.c.b.versements.VersementService - Rechercher la somme des allocations de naissances pour l'année 2019
+19:46:00.984 [main] INFO  c.h.c.b.versements.VersementService - Exporter le PDF des versements pour l'allocataire 1
+19:46:00.994 [main] INFO  c.h.c.b.a.AllocataireService - Mise à jour de l'allocataire : ch.hearc.cafheg.business.allocations.NoAVS@f08fdce
+19:46:01.003 [main] INFO  c.h.c.b.a.AllocataireService - Mise à jour de l'allocataire : ch.hearc.cafheg.business.allocations.NoAVS@f08fdce
+19:46:01.006 [main] INFO  c.h.c.b.a.AllocataireService - Suppression de l'allocataire id : 1
+19:46:01.018 [main] INFO  c.h.c.b.a.AllocataireService - Mise à jour de l'allocataire : ch.hearc.cafheg.business.allocations.NoAVS@7479b626
+19:46:01.021 [main] INFO  c.h.c.b.a.AllocataireService - Suppression de l'allocataire id : 1
+19:46:02.135 [main] INFO  c.h.c.b.a.AllocataireService - Suppression de l'allocataire id : 1
+19:46:02.160 [main] INFO  c.h.c.b.a.AllocataireService - Mise à jour de l'allocataire : ch.hearc.cafheg.business.allocations.NoAVS@718fd7c1
+19:46:02.185 [main] INFO  c.h.c.b.a.AllocationService - Rechercher tous les allocataires
+19:46:02.231 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:46:02.236 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:46:02.238 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:46:02.241 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:46:02.243 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:46:02.245 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:46:02.248 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:46:02.250 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:46:02.252 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:46:02.257 [main] INFO  c.h.c.b.a.AllocationService - Rechercher toutes les allocations
+19:46:02.265 [main] INFO  c.h.c.b.a.AllocationService - Rechercher tous les allocataires
+19:46:02.535 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:46:02.549 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:46:02.554 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:46:02.560 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:46:02.565 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:46:02.571 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:46:02.579 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:46:43.762 [main] INFO  c.h.c.b.versements.VersementService - Exporter les PDF pour l'allocataire:  1
+19:46:44.453 [main] INFO  c.h.c.b.versements.VersementService - Rechercher la somme des allocations  2019
+19:46:44.459 [main] INFO  c.h.c.b.versements.VersementService - Rechercher la somme des allocations de naissances pour l'année 2019
+19:46:44.464 [main] INFO  c.h.c.b.versements.VersementService - Exporter le PDF des versements pour l'allocataire 1
+19:46:44.477 [main] INFO  c.h.c.b.a.AllocataireService - Mise à jour de l'allocataire : ch.hearc.cafheg.business.allocations.NoAVS@16872c4d
+19:46:44.488 [main] INFO  c.h.c.b.a.AllocataireService - Mise à jour de l'allocataire : ch.hearc.cafheg.business.allocations.NoAVS@16872c4d
+19:46:44.491 [main] INFO  c.h.c.b.a.AllocataireService - Suppression de l'allocataire id : 1
+19:46:44.506 [main] INFO  c.h.c.b.a.AllocataireService - Mise à jour de l'allocataire : ch.hearc.cafheg.business.allocations.NoAVS@4867ab9f
+19:46:44.509 [main] INFO  c.h.c.b.a.AllocataireService - Suppression de l'allocataire id : 1
+19:46:45.649 [main] INFO  c.h.c.b.a.AllocataireService - Suppression de l'allocataire id : 1
+19:46:45.681 [main] INFO  c.h.c.b.a.AllocataireService - Mise à jour de l'allocataire : ch.hearc.cafheg.business.allocations.NoAVS@2213639b
+19:46:45.711 [main] INFO  c.h.c.b.a.AllocationService - Rechercher tous les allocataires
+19:46:45.757 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:46:45.762 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:46:45.765 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:46:45.768 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:46:45.770 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:46:45.773 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:46:45.776 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:46:45.779 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:46:45.781 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:46:45.784 [main] INFO  c.h.c.b.a.AllocationService - Rechercher toutes les allocations
+19:46:45.792 [main] INFO  c.h.c.b.a.AllocationService - Rechercher tous les allocataires
+19:46:46.061 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:46:46.074 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:46:46.079 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:46:46.085 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:46:46.090 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:46:46.096 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:46:46.101 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:47:01.257 [main] INFO  c.h.c.b.versements.VersementService - Exporter les PDF pour l'allocataire:  1
+19:47:02.021 [main] INFO  c.h.c.b.versements.VersementService - Rechercher la somme des allocations  2019
+19:47:02.028 [main] INFO  c.h.c.b.versements.VersementService - Rechercher la somme des allocations de naissances pour l'année 2019
+19:47:02.032 [main] INFO  c.h.c.b.versements.VersementService - Exporter le PDF des versements pour l'allocataire 1
+19:47:02.046 [main] INFO  c.h.c.b.a.AllocataireService - Mise à jour de l'allocataire : ch.hearc.cafheg.business.allocations.NoAVS@671facee
+19:47:02.057 [main] INFO  c.h.c.b.a.AllocataireService - Mise à jour de l'allocataire : ch.hearc.cafheg.business.allocations.NoAVS@671facee
+19:47:02.060 [main] INFO  c.h.c.b.a.AllocataireService - Suppression de l'allocataire id : 1
+19:47:02.077 [main] INFO  c.h.c.b.a.AllocataireService - Mise à jour de l'allocataire : ch.hearc.cafheg.business.allocations.NoAVS@65f2f9b0
+19:47:02.080 [main] INFO  c.h.c.b.a.AllocataireService - Suppression de l'allocataire id : 1
+19:47:03.507 [main] INFO  c.h.c.b.a.AllocataireService - Suppression de l'allocataire id : 1
+19:47:03.535 [main] INFO  c.h.c.b.a.AllocataireService - Mise à jour de l'allocataire : ch.hearc.cafheg.business.allocations.NoAVS@42ea7565
+19:47:03.559 [main] INFO  c.h.c.b.a.AllocationService - Rechercher tous les allocataires
+19:47:03.605 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:47:03.610 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:47:03.613 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:47:03.616 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:47:03.620 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:47:03.623 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:47:03.626 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:47:03.629 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:47:03.631 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:47:03.634 [main] INFO  c.h.c.b.a.AllocationService - Rechercher toutes les allocations
+19:47:03.641 [main] INFO  c.h.c.b.a.AllocationService - Rechercher tous les allocataires
+19:47:03.945 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:47:03.958 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:47:03.965 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:47:03.971 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:47:03.977 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:47:03.983 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:47:03.989 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:57:50.089 [main] INFO  c.h.c.b.versements.VersementService - Exporter les PDF pour l'allocataire:  1
+19:57:50.816 [main] INFO  c.h.c.b.versements.VersementService - Rechercher la somme des allocations  2019
+19:57:50.823 [main] INFO  c.h.c.b.versements.VersementService - Rechercher la somme des allocations de naissances pour l'année 2019
+19:57:50.827 [main] INFO  c.h.c.b.versements.VersementService - Exporter le PDF des versements pour l'allocataire 1
+19:57:50.839 [main] INFO  c.h.c.b.a.AllocataireService - Mise à jour de l'allocataire : ch.hearc.cafheg.business.allocations.NoAVS@17b6d426
+19:57:50.846 [main] INFO  c.h.c.b.a.AllocataireService - Mise à jour de l'allocataire : ch.hearc.cafheg.business.allocations.NoAVS@17b6d426
+19:57:50.849 [main] INFO  c.h.c.b.a.AllocataireService - Suppression de l'allocataire id : 1
+19:57:50.862 [main] INFO  c.h.c.b.a.AllocataireService - Mise à jour de l'allocataire : ch.hearc.cafheg.business.allocations.NoAVS@3531f3ca
+19:57:50.865 [main] INFO  c.h.c.b.a.AllocataireService - Suppression de l'allocataire id : 1
+19:57:51.920 [main] INFO  c.h.c.b.a.AllocataireService - Suppression de l'allocataire id : 1
+19:57:51.946 [main] INFO  c.h.c.b.a.AllocataireService - Mise à jour de l'allocataire : ch.hearc.cafheg.business.allocations.NoAVS@5382184b
+19:57:51.968 [main] INFO  c.h.c.b.a.AllocationService - Rechercher tous les allocataires
+19:57:52.009 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:57:52.014 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:57:52.017 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:57:52.019 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:57:52.022 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:57:52.024 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:57:52.026 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:57:52.029 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:57:52.031 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:57:52.035 [main] INFO  c.h.c.b.a.AllocationService - Rechercher toutes les allocations
+19:57:52.042 [main] INFO  c.h.c.b.a.AllocationService - Rechercher tous les allocataires
+19:57:52.283 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:57:52.295 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:57:52.301 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:57:52.306 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:57:52.311 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:57:52.317 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:57:52.321 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:58:40.942 [main] INFO  c.h.c.b.versements.VersementService - Exporter les PDF pour l'allocataire:  1
+19:58:41.637 [main] INFO  c.h.c.b.versements.VersementService - Rechercher la somme des allocations  2019
+19:58:41.642 [main] INFO  c.h.c.b.versements.VersementService - Rechercher la somme des allocations de naissances pour l'année 2019
+19:58:41.647 [main] INFO  c.h.c.b.versements.VersementService - Exporter le PDF des versements pour l'allocataire 1
+19:58:41.658 [main] INFO  c.h.c.b.a.AllocataireService - Mise à jour de l'allocataire : ch.hearc.cafheg.business.allocations.NoAVS@75a118e6
+19:58:41.665 [main] INFO  c.h.c.b.a.AllocataireService - Mise à jour de l'allocataire : ch.hearc.cafheg.business.allocations.NoAVS@75a118e6
+19:58:41.668 [main] INFO  c.h.c.b.a.AllocataireService - Suppression de l'allocataire id : 1
+19:58:41.680 [main] INFO  c.h.c.b.a.AllocataireService - Mise à jour de l'allocataire : ch.hearc.cafheg.business.allocations.NoAVS@74294c1a
+19:58:41.683 [main] INFO  c.h.c.b.a.AllocataireService - Suppression de l'allocataire id : 1
+19:58:42.772 [main] INFO  c.h.c.b.a.AllocataireService - Suppression de l'allocataire id : 1
+19:58:42.804 [main] INFO  c.h.c.b.a.AllocataireService - Mise à jour de l'allocataire : ch.hearc.cafheg.business.allocations.NoAVS@7f0b93b4
+19:58:42.827 [main] INFO  c.h.c.b.a.AllocationService - Rechercher tous les allocataires
+19:58:42.873 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:58:42.878 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:58:42.881 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:58:42.884 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:58:42.887 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:58:42.891 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:58:42.894 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:58:42.897 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:58:42.900 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:58:42.903 [main] INFO  c.h.c.b.a.AllocationService - Rechercher toutes les allocations
+19:58:42.911 [main] INFO  c.h.c.b.a.AllocationService - Rechercher tous les allocataires
+19:58:43.168 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:58:43.186 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:58:43.193 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:58:43.200 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:58:43.206 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:58:43.212 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:58:43.218 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:59:40.140 [main] INFO  c.h.c.b.versements.VersementService - Exporter les PDF pour l'allocataire:  1
+19:59:40.860 [main] INFO  c.h.c.b.versements.VersementService - Rechercher la somme des allocations  2019
+19:59:40.865 [main] INFO  c.h.c.b.versements.VersementService - Rechercher la somme des allocations de naissances pour l'année 2019
+19:59:40.869 [main] INFO  c.h.c.b.versements.VersementService - Exporter le PDF des versements pour l'allocataire 1
+19:59:40.881 [main] INFO  c.h.c.b.a.AllocataireService - Mise à jour de l'allocataire : ch.hearc.cafheg.business.allocations.NoAVS@75a118e6
+19:59:40.889 [main] INFO  c.h.c.b.a.AllocataireService - Mise à jour de l'allocataire : ch.hearc.cafheg.business.allocations.NoAVS@75a118e6
+19:59:40.892 [main] INFO  c.h.c.b.a.AllocataireService - Suppression de l'allocataire id : 1
+19:59:40.904 [main] INFO  c.h.c.b.a.AllocataireService - Mise à jour de l'allocataire : ch.hearc.cafheg.business.allocations.NoAVS@74294c1a
+19:59:40.907 [main] INFO  c.h.c.b.a.AllocataireService - Suppression de l'allocataire id : 1
+19:59:42.001 [main] INFO  c.h.c.b.a.AllocataireService - Suppression de l'allocataire id : 1
+19:59:42.029 [main] INFO  c.h.c.b.a.AllocataireService - Mise à jour de l'allocataire : ch.hearc.cafheg.business.allocations.NoAVS@7f0b93b4
+19:59:42.053 [main] INFO  c.h.c.b.a.AllocationService - Rechercher tous les allocataires
+19:59:42.100 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:59:42.106 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:59:42.109 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:59:42.112 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:59:42.115 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:59:42.118 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:59:42.121 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:59:42.123 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:59:42.127 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:59:42.130 [main] INFO  c.h.c.b.a.AllocationService - Rechercher toutes les allocations
+19:59:42.137 [main] INFO  c.h.c.b.a.AllocationService - Rechercher tous les allocataires
+19:59:42.400 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:59:42.419 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:59:42.426 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:59:42.431 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:59:42.436 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:59:42.441 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+19:59:42.446 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+20:00:21.414 [main] INFO  c.h.c.b.versements.VersementService - Exporter les PDF pour l'allocataire:  1
+20:00:22.107 [main] INFO  c.h.c.b.versements.VersementService - Rechercher la somme des allocations  2019
+20:00:22.114 [main] INFO  c.h.c.b.versements.VersementService - Rechercher la somme des allocations de naissances pour l'année 2019
+20:00:22.121 [main] INFO  c.h.c.b.versements.VersementService - Exporter le PDF des versements pour l'allocataire 1
+20:00:22.140 [main] INFO  c.h.c.b.a.AllocataireService - Mise à jour de l'allocataire : ch.hearc.cafheg.business.allocations.NoAVS@4492eede
+20:00:22.147 [main] INFO  c.h.c.b.a.AllocataireService - Mise à jour de l'allocataire : ch.hearc.cafheg.business.allocations.NoAVS@4492eede
+20:00:22.150 [main] INFO  c.h.c.b.a.AllocataireService - Suppression de l'allocataire id : 1
+20:00:22.164 [main] INFO  c.h.c.b.a.AllocataireService - Mise à jour de l'allocataire : ch.hearc.cafheg.business.allocations.NoAVS@70f822e
+20:00:22.168 [main] INFO  c.h.c.b.a.AllocataireService - Suppression de l'allocataire id : 1
+20:00:23.394 [main] INFO  c.h.c.b.a.AllocataireService - Suppression de l'allocataire id : 1
+20:00:23.428 [main] INFO  c.h.c.b.a.AllocataireService - Mise à jour de l'allocataire : ch.hearc.cafheg.business.allocations.NoAVS@4e22368c
+20:00:23.459 [main] INFO  c.h.c.b.a.AllocationService - Rechercher tous les allocataires
+20:00:23.514 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+20:00:23.520 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+20:00:23.523 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+20:00:23.526 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+20:00:23.529 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+20:00:23.531 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+20:00:23.534 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+20:00:23.537 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+20:00:23.540 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+20:00:23.544 [main] INFO  c.h.c.b.a.AllocationService - Rechercher toutes les allocations
+20:00:23.551 [main] INFO  c.h.c.b.a.AllocationService - Rechercher tous les allocataires
+20:00:23.841 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+20:00:23.855 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+20:00:23.860 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+20:00:23.867 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+20:00:23.874 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+20:00:23.880 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+20:00:23.884 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+20:08:00.337 [main] INFO  c.h.c.b.versements.VersementService - Exporter les PDF pour l'allocataire:  1
+20:08:01.012 [main] INFO  c.h.c.b.versements.VersementService - Rechercher la somme des allocations  2019
+20:08:01.017 [main] INFO  c.h.c.b.versements.VersementService - Rechercher la somme des allocations de naissances pour l'année 2019
+20:08:01.021 [main] INFO  c.h.c.b.versements.VersementService - Exporter le PDF des versements pour l'allocataire 1
+20:08:01.035 [main] INFO  c.h.c.b.a.AllocataireService - Mise à jour de l'allocataire : ch.hearc.cafheg.business.allocations.NoAVS@4492eede
+20:08:01.046 [main] INFO  c.h.c.b.a.AllocataireService - Mise à jour de l'allocataire : ch.hearc.cafheg.business.allocations.NoAVS@4492eede
+20:08:01.049 [main] INFO  c.h.c.b.a.AllocataireService - Suppression de l'allocataire id : 1
+20:08:01.064 [main] INFO  c.h.c.b.a.AllocataireService - Mise à jour de l'allocataire : ch.hearc.cafheg.business.allocations.NoAVS@70f822e
+20:08:01.067 [main] INFO  c.h.c.b.a.AllocataireService - Suppression de l'allocataire id : 1
+20:08:02.360 [main] INFO  c.h.c.b.a.AllocataireService - Suppression de l'allocataire id : 1
+20:08:02.393 [main] INFO  c.h.c.b.a.AllocataireService - Mise à jour de l'allocataire : ch.hearc.cafheg.business.allocations.NoAVS@3c770db4
+20:08:02.426 [main] INFO  c.h.c.b.a.AllocationService - Rechercher tous les allocataires
+20:08:02.495 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+20:08:02.501 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+20:08:02.505 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+20:08:02.509 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+20:08:02.513 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+20:08:02.517 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+20:08:02.521 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+20:08:02.525 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+20:08:02.528 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+20:08:02.532 [main] INFO  c.h.c.b.a.AllocationService - Rechercher toutes les allocations
+20:08:02.540 [main] INFO  c.h.c.b.a.AllocationService - Rechercher tous les allocataires
+20:08:02.823 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+20:08:02.839 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+20:08:02.846 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+20:08:02.853 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+20:08:02.861 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+20:08:02.868 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+20:08:02.873 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+20:08:28.600 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+20:08:28.615 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+20:08:28.620 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+20:08:28.625 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+20:08:28.631 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+20:08:28.636 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+20:08:28.640 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+20:08:28.645 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+20:08:28.651 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+20:08:42.061 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+20:08:42.078 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+20:08:42.083 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+20:08:42.089 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+20:08:42.093 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+20:08:42.098 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+20:08:42.103 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+20:08:42.107 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations
+20:08:42.111 [main] INFO  c.h.c.b.a.AllocationService - Déterminer quel parent a le droit aux allocations

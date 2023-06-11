@@ -1,6 +1,6 @@
 package ch.hearc.cafheg.infrastructure.api;
 
-import static ch.hearc.cafheg.infrastructure.persistance.Database.inSupplierTransaction;
+import static ch.hearc.cafheg.infrastructure.persistance.Database.inTransaction;
 
 import ch.hearc.cafheg.business.allocations.Allocataire;
 import ch.hearc.cafheg.business.allocations.AllocataireService;
@@ -60,7 +60,7 @@ public class RESTController {
   @PostMapping("/droits/quel-parent")
   public ResponseEntity<String> getParentDroitAllocation(@RequestBody DroitAllocationDTO droitAllocationDTO) {
     try {
-      return ResponseEntity.status(HttpStatus.OK).body(inSupplierTransaction(() -> allocationService.getParentDroitAllocation(droitAllocationDTO)));
+      return ResponseEntity.status(HttpStatus.OK).body(inTransaction(() -> allocationService.getParentDroitAllocation(droitAllocationDTO)));
     } catch (Exception e) {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }
@@ -69,23 +69,24 @@ public class RESTController {
   @GetMapping("/allocataires")
   public List<Allocataire> allocataires(
       @RequestParam(value = "startsWith", required = false) String start) {
-    return inSupplierTransaction(() -> allocationService.findAllAllocataires());
+    // Vous n'avez pas appelé le bon service.
+    return inTransaction(() -> allocationService.findAllAllocataires(start));
   }
 
   @GetMapping("/allocations")
   public List<Allocation> allocations() {
-    return inSupplierTransaction(allocationService::findAllocationsActuelles);
+    return inTransaction(allocationService::findAllocationsActuelles);
   }
 
   @GetMapping("/allocations/{year}/somme")
   public BigDecimal sommeAs(@PathVariable("year") int year) {
-    return inSupplierTransaction(() -> versementService.findSommeAllocationParAnnee(year).getValue());
+    return inTransaction(() -> versementService.findSommeAllocationParAnnee(year).getValue());
   }
 
   @GetMapping("/allocations-naissances/{year}/somme")
   public ResponseEntity sommeAns(@PathVariable("year") int year) {
     try{
-      return ResponseEntity.status(HttpStatus.OK).body(inSupplierTransaction(
+      return ResponseEntity.status(HttpStatus.OK).body(inTransaction(
               () -> versementService.findSommeAllocationNaissanceParAnnee(year).getValue()));
     }
     catch (Exception e){
@@ -97,7 +98,7 @@ public class RESTController {
   @GetMapping(value = "/allocataires/{allocataireId}/allocations", produces = MediaType.APPLICATION_PDF_VALUE)
   public ResponseEntity pdfAllocations(@PathVariable("allocataireId") int allocataireId) {
     try{
-      return ResponseEntity.status(HttpStatus.OK).body(inSupplierTransaction(() -> versementService.exportPDFAllocataire(allocataireId)));
+      return ResponseEntity.status(HttpStatus.OK).body(inTransaction(() -> versementService.exportPDFAllocataire(allocataireId)));
     }
     catch (Exception e){
       return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
@@ -107,13 +108,13 @@ public class RESTController {
   //FIXME Exception pas bien remontée
   @GetMapping(value = "/allocataires/{allocataireId}/versements", produces = MediaType.APPLICATION_PDF_VALUE)
   public byte[] pdfVersements(@PathVariable("allocataireId") int allocataireId) {
-    return inSupplierTransaction(() -> versementService.exportPDFVersements(allocataireId));
+    return inTransaction(() -> versementService.exportPDFVersements(allocataireId));
   }
 
   @DeleteMapping("/allocataire")
   public ResponseEntity<String> deleteById(@RequestParam int allocataireId) {
     try {
-      return ResponseEntity.status(HttpStatus.OK).body(inSupplierTransaction(() -> allocataireService.deleteById(allocataireId)));
+      return ResponseEntity.status(HttpStatus.OK).body(inTransaction(() -> allocataireService.deleteById(allocataireId)));
     } catch (Exception e) {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }
@@ -122,7 +123,7 @@ public class RESTController {
   @PutMapping("/allocataire")
   public ResponseEntity updateAllocataire(@RequestBody AllocataireDTO allocataireDTO){
     try {
-      return ResponseEntity.status(HttpStatus.OK).body(inSupplierTransaction(() -> allocataireService.update(allocataireDTO)));
+      return ResponseEntity.status(HttpStatus.OK).body(inTransaction(() -> allocataireService.update(allocataireDTO)));
     } catch (Exception e) {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }

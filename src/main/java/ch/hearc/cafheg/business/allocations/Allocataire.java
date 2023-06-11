@@ -1,19 +1,22 @@
 package ch.hearc.cafheg.business.allocations;
 
 import lombok.Getter;
+import lombok.Value;
 
-@Getter
+// Le @Value rend implicitement tous vos attributs final!
+@Value
 public class Allocataire {
 
-  private NoAVS noAVS;
-  private String nom;
-  private String prenom;
-  private final String residence;
-  private final boolean activiteLucrative;
-  private final boolean autoriteParentale;
-  private final String workplace;
-  private final String worktype;
-  private final Integer salaire;
+  // Essayons de rester immutable si ce n'est pas nécessaire
+  NoAVS noAVS;
+  String nom;
+  String prenom;
+  String residence;
+  boolean activiteLucrative;
+  boolean autoriteParentale;
+  String workplace;
+  String worktype;
+  Integer salaire;
 
   public Allocataire(NoAVS noAVS,
                      String nom,
@@ -34,17 +37,4 @@ public class Allocataire {
     this.worktype = worktype;
     this.salaire = salaire;
   }
-
-  public void setNoAVS(NoAVS noAVS) {
-    this.noAVS = noAVS;
-  }
-
-  public void setNom(String nom) {
-    this.nom = nom;
-  }
-
-  public void setPrenom(String prenom) {
-    this.prenom = prenom;
-  }
-
 }

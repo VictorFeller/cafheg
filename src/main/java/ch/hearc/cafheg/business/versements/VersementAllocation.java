@@ -4,11 +4,13 @@ import ch.hearc.cafheg.business.common.Montant;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import lombok.Value;
 
+@Value
 public class VersementAllocation {
 
-  private final Montant montant;
-  private final LocalDate dateVersement;
+  Montant montant;
+  LocalDate dateVersement;
 
   public VersementAllocation(Montant montant, LocalDate dateVersement) {
     this.montant = montant;

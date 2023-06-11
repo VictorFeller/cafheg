@@ -2,13 +2,15 @@ package ch.hearc.cafheg.business.versements;
 
 import ch.hearc.cafheg.business.common.Montant;
 import java.time.LocalDate;
+import lombok.Value;
 
+@Value
 public class VersementParentParMois {
 
-  private final long parentId;
-  private final Montant montant;
-  private final LocalDate dateVersement;
-  private final LocalDate mois;
+  long parentId;
+  Montant montant;
+  LocalDate dateVersement;
+  LocalDate mois;
 
   public VersementParentParMois(long parentId,
       Montant montant, LocalDate dateVersement, LocalDate mois) {

@@ -66,13 +66,13 @@ public class AllocataireServiceTest {
         Allocataire allocataire = new Allocataire(noAVS, nom, prenom, residence, activiteLucrative, autoriteParentale, workplace, worktype, salaire);
 
         Mockito.when(allocataireMapper.findByAVS(allocataire.getNoAVS())).thenReturn(allocataire);
-        Mockito.when(allocataireMapper.update(any(Allocataire.class))).thenAnswer(new Answer<Allocataire>() {
-            @Override
-            public Allocataire answer(InvocationOnMock invocation) throws Throwable {
+
+        // La lambda ici rend le code un peu plus clair
+        Mockito.when(allocataireMapper.update(any(Allocataire.class))).thenAnswer(
+            (Answer<Allocataire>) invocation -> {
                 //Retourne toujours la même instance que celle donnée en param
                 return invocation.getArgument(0);
-            }
-        });
+            });
 
         //Vérifie qu'une exception est bien lancée si on veut modifier le numéro AVS
         assertThrows(RuntimeException.class, () -> allocataireService.update(dtoUpdateAllocataire));
@@ -98,13 +98,11 @@ public class AllocataireServiceTest {
         Allocataire allocataire = new Allocataire(noAVS, nom, prenom, residence, activiteLucrative, autoriteParentale, workplace, worktype, salaire);
 
         Mockito.when(allocataireMapper.findByAVS(allocataire.getNoAVS())).thenReturn(allocataire);
-        Mockito.when(allocataireMapper.update(any(Allocataire.class))).thenAnswer(new Answer<Allocataire>() {
-            @Override
-            public Allocataire answer(InvocationOnMock invocation) throws Throwable {
+        Mockito.when(allocataireMapper.update(any(Allocataire.class))).thenAnswer(
+            (Answer<Allocataire>) invocation -> {
                 //Retourne toujours la même instance que celle donnée en param
                 return invocation.getArgument(0);
-            }
-        });
+            });
 
         AllocataireDTO dtoUpdatedAllocataire = allocataireService.update(dtoUpdateAllocataire);
         //Le nom, prénom retourné doit bien correspondre au nouveau qu'on souhaite attribuer

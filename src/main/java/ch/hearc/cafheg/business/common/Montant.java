@@ -2,10 +2,12 @@ package ch.hearc.cafheg.business.common;
 
 import java.math.BigDecimal;
 import java.util.Objects;
+import lombok.Value;
 
+@Value
 public class Montant {
 
-  public final BigDecimal value;
+  BigDecimal value;
 
   public Montant(BigDecimal value) {
     this.value = value;
