@@ -1,12 +1,14 @@
 package ch.hearc.cafheg.business.versements;
 
 import ch.hearc.cafheg.business.common.Montant;
+import lombok.Value;
 
+@Value
 public class VersementParentEnfant {
 
-  private final long parentId;
-  private final long enfantId;
-  private final Montant montant;
+  long parentId;
+  long enfantId;
+  Montant montant;
 
   public VersementParentEnfant(long parentId, long enfantId,
       Montant montant) {

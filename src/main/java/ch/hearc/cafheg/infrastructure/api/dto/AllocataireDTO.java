@@ -2,18 +2,19 @@ package ch.hearc.cafheg.infrastructure.api.dto;
 
 import ch.hearc.cafheg.business.allocations.NoAVS;
 import lombok.Getter;
+import lombok.Value;
 
-@Getter
+@Value
 public class AllocataireDTO {
-    private NoAVS noAVS;
-    private String nom;
-    private String prenom;
-    private final String residence;
-    private final boolean activiteLucrative;
-    private final boolean autoriteParentale;
-    private final String workplace;
-    private final String worktype;
-    private final Integer salaire;
+    NoAVS noAVS;
+    String nom;
+    String prenom;
+    String residence;
+    boolean activiteLucrative;
+    boolean autoriteParentale;
+    String workplace;
+    String worktype;
+    Integer salaire;
 
     public AllocataireDTO(NoAVS noAVS, String nom, String prenom, String residence, boolean activiteLucrative, boolean autoriteParentale, String workplace, String worktype, Integer salaire) {
         this.noAVS = noAVS;

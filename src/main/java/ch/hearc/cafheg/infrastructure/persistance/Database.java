@@ -35,7 +35,7 @@ public class Database {
    * @param <T> Le type du retour de la fonction
    * @return Le résultat de l'éxécution de la fonction
    */
-  public static <T> T inSupplierTransaction(Supplier<T> inTransaction) {
+  public static <T> T inTransaction(Supplier<T> inTransaction) {
     logger.debug("inTransaction#start");
     try {
       logger.debug("inTransaction#getConnection");
@@ -57,7 +57,9 @@ public class Database {
     }
   }
 
-  public static void inRunnableTransaction(Runnable inTransaction) {
+  // C'est un peu du détail, mais je pense pas que spécifier le type du paramètre soit une pratique
+  // usuelle. On a déjà la signature qui le spécifie.
+  public static void inTransactionNoReturn(Runnable inTransaction) {
     logger.debug("inTransaction#start");
     try {
       logger.debug("inTransaction#getConnection");

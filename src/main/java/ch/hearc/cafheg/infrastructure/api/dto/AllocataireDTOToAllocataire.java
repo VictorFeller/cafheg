@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import java.util.function.Function;
 
 
-@Service
+// Vous instanciez cette classe vous-même, le @Service ne sert à rien ici
 public class AllocataireDTOToAllocataire implements Function<AllocataireDTO, Allocataire> {
     @Override
     public Allocataire apply(AllocataireDTO allocataireDTO){
